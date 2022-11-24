@@ -1,0 +1,139 @@
+.container {
+  max-width: 1440px;
+  margin: auto;
+  flex-direction: row;
+}
+
+.flex {
+  display: flex;
+}
+
+.aside {
+  width: 56%;
+}
+
+.content {
+  width: 44%;
+  background-color: #ffffff;
+  padding: 121px 150px 146px 50px;
+}
+
+.text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #3a3d42;
+  line-height: 40px;
+  margin-top: 0px;
+}
+
+.text2 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
+  color: rgba(58, 61, 66, 0.6);
+}
+
+.formLogin {
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid rgba(169, 169, 169, 0.6);
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 47px;
+}
+
+.submitPin {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  margin-bottom: 90px;
+}
+
+.pin {
+  width: 53px;
+  height: 65px;
+  border: 1px solid rgba(169, 169, 169, 0.4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputPin {
+  width: 30.74px;
+  height: 45px;
+  outline-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+}
+
+.confirmation {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(58, 61, 66, 0.5);
+  text-align: center;
+  margin-top: 40px;
+}
+
+@media (min-width: 425px) {
+  .aside {
+    display: none;
+  }
+  .content {
+    width: 100%;
+    padding: 50px 20px 300px 20px;
+    text-align: center;
+  }
+  .text {
+    font-size: 24px;
+    margin-bottom: 50px;
+  }
+  .text2 {
+    margin-bottom: 50px;
+  }
+  .forgotPwd {
+    margin-top: 40px;
+  }
+  .submitPin {
+    justify-content: space-evenly;
+  }
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 50px 100px 300px 100px;
+  }
+  .formLogin {
+    margin: 0px;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+  }
+  .submitPin {
+    justify-content: space-evenly;
+  }
+}
+
+@media (min-width: 1024px) {
+  .aside {
+    display: block;
+    width: 56%;
+  }
+  .content {
+    width: 44%;
+    padding: 50px 50px 50px 50px;
+    text-align: start;
+  }
+  .text {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .content {
+    padding: 121px 140px 146px 50px;
+    text-align: start;
+  }
+  .submitPin {
+    justify-content: space-between;
+  }
+}

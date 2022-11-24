@@ -1,0 +1,156 @@
+.container {
+  position: relative;
+  width: 100%;
+  background-color: #6379f4;
+  background-size: cover;
+  height: 100%;
+  margin: auto;
+  margin-top: 0px;
+  padding-top: 50px;
+  padding-bottom: 70px;
+}
+.vector {
+  /* position: absolute; */
+  width: 100%;
+  margin-top: -30px;
+}
+
+.vector1 {
+  width: 100%;
+  margin-top: -548px;
+}
+
+.wrapper-title {
+  padding-left: 155px;
+}
+
+.title {
+  margin: 0px;
+  font-size: 29px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 40px;
+  margin-bottom: 45px;
+}
+
+.wraperImg {
+  position: absolute;
+  width: 250px;
+  margin-top: -835px;
+  margin-left: 115px;
+}
+.wraperImg2 {
+  position: absolute;
+  width: 250px;
+  margin-top: -835px;
+  margin-left: 265px;
+}
+
+.img1 {
+  height: 1060px;
+  margin-left: 115px;
+  margin-top: 82.05px;
+}
+
+.img2 {
+  height: 1073px;
+  margin-left: 252.26px;
+  margin-top: 82.05px;
+}
+
+.wrapperText {
+  padding-left: 155px;
+  padding-right: 155px;
+  margin-top: -280px;
+}
+
+.title1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.text {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 30px;
+  margin: 0px;
+}
+
+@media (min-width: 1024px) {
+  .wrapper-title {
+    padding-left: 80px;
+
+  }
+  .wraperImg {
+    margin-top: -835px;
+    margin-left: 30px;
+  }
+  .wraperImg2 {
+    margin-top: -835px;
+    margin-left: 178px;
+  }
+  .img1 {
+    margin-left: 115px;
+    margin-top: 82.05px;
+  }
+  .img2 {
+    margin-left: 252.26px;
+    margin-top: 82.05px;
+  }
+  .wrapperText {
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-top: -280px;
+  }
+}
+@media (min-width: 1280px) {
+  .vector {
+    /* position: absolute; */
+    width: 100%;
+    margin-top: -30px;
+  }
+  
+  .vector1 {
+    width: 100%;
+    margin-top: -548px;
+  }
+  
+  .wrapper-title {
+    padding-left: 155px;
+  }
+  
+  .title {
+    margin: 0px;
+    margin-bottom: 45px;
+  }
+  
+  .wraperImg {
+    position: absolute;
+    margin-top: -835px;
+    margin-left: 115px;
+  }
+  .wraperImg2 {
+    position: absolute;
+    margin-top: -835px;
+    margin-left: 265px;
+  }
+  
+  .img1 {
+    margin-left: 115px;
+    margin-top: 82.05px;
+  }
+  
+  .img2 {
+    margin-left: 252.26px;
+    margin-top: 82.05px;
+  }
+  
+  .wrapperText {
+    padding-left: 155px;
+    padding-right: 155px;
+    margin-top: -280px;
+  }
+}

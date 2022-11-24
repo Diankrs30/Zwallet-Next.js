@@ -1,0 +1,142 @@
+.container {
+  max-width: 1440px;
+  margin: auto;
+  flex-direction: row;
+}
+
+.flex {
+  display: flex;
+}
+
+.aside {
+  width: 56%;
+  /* height: 100vh; */
+}
+
+.content {
+  width: 44%;
+  background-color: #ffffff;
+  padding: 121px 140px 40px 50px;
+}
+
+.text {
+  font-size: 30px;
+  font-weight: 700;
+  color: #3a3d42;
+  line-height: 40px;
+}
+
+.text2 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
+  color: rgba(58, 61, 66, 0.6);
+}
+
+.formLogin {
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid rgba(169, 169, 169, 0.6);
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.inputLogin {
+  width: 90%;
+  margin-left: 18px;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(169, 169, 169, 0.8);
+  outline-color: transparent;
+  border: transparent;
+}
+
+.btn {
+  margin-top: 70px;
+}
+
+.confirmation {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(58, 61, 66, 0.5);
+  text-align: center;
+  margin: 0px;
+  margin-top: 45px;
+}
+
+.textSpan {
+  color: #6379f4;
+  font-weight: 700;
+}
+
+@media (min-width: 425px) {
+  .aside {
+    display: none;
+  }
+  .content {
+    width: 100%;
+    padding: 50px 20px 50px 20px;
+    text-align: center;
+  }
+  .text {
+    font-size: 26px;
+    margin-bottom: 50px;
+  }
+  .text2 {
+    margin-bottom: 50px;
+  }
+  .forgotPwd {
+    margin-top: 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 50px 100px 100px 100px;
+  }
+  .formLogin {
+    margin: 0px;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .aside {
+    display: block;
+    width: 56%;
+  }
+  .content {
+    width: 44%;
+    padding: 50px 50px 50px 50px;
+  }
+  .text {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .content {
+    padding: 121px 140px 51px 50px;
+    text-align: start;
+  }
+  .text {
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+  }
+  .text2 {
+    margin-bottom: 0px;
+  }
+  .formLogin {
+    margin-top: 40px;
+    margin-bottom: 0px;
+  }
+  .forgotPwd {
+    margin-top: 20px;
+  }
+  .confirmation {
+    margin-bottom: 0px;
+  }
+}
