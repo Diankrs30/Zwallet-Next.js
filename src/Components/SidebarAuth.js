@@ -1,9 +1,9 @@
 import Image from "next/image";
-import vector from "../assets/Vector.png";
-import vector4 from "../assets/vector4.png"
-import phone2 from "../assets/png-phone2.svg";
-import phone from "../assets/png-phone.svg";
-import styles from "../styles/SidebarAuth.module.css";
+import vector from "assets/Vector.png";
+import vector4 from "assets/vector4.png"
+import phone2 from "assets/png-phone2.svg";
+import phone from "assets/png-phone.svg";
+import styles from "styles/SidebarAuth.module.css";
 
 function Sidelogin() {
   return (
