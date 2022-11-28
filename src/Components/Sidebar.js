@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Styles from "styles/Sidebar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import authAction from "../../redux/actions/auth";
+import authAction from "../redux/actions/auth";
 import userAction from "src/redux/actions/user";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import Modal from "src/pages/Components/ModalTopUp"
+import Modal from "src/Components/ModalTopUp"
 
 function Sidebar() {
   const dispatch = useDispatch();

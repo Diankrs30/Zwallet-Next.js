@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Image from "next/image";
 import styles from "styles/Forgot_password.module.css";
-import Layout from "src/pages/Components/Layout";
-import SidebarAuth from "src/pages/Components/SidebarAuth";
+import Layout from "src/Components/Layout";
+import SidebarAuth from "src/Components/SidebarAuth";
 
 import lock from "assets/lock.png";
 import eyeSlash from "assets/eye-crossed.png";

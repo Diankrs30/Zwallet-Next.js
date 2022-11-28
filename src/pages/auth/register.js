@@ -8,8 +8,8 @@ import Link from "next/link";
 
 import Image from "next/image";
 import styles from "styles/Register.module.css";
-import Layout from "src/pages/Components/Layout";
-import SidebarAuth from "src/pages/Components/SidebarAuth";
+import Layout from "src/Components/Layout";
+import SidebarAuth from "src/Components/SidebarAuth";
 
 import mail from "assets/mail.png";
 import lock from "assets/lock.png";

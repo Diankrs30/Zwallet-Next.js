@@ -6,10 +6,10 @@ import Link from "next/link";
 
 import Image from "next/image";
 import styles from "styles/SeacrhReceiver.module.css";
-import Layout from "src/pages/Components/Layout";
-import Header from "src/pages/Components/Header";
-import Footer from "src/pages/Components/Footer";
-import Sidebar from "src/pages/Components/Sidebar";
+import Layout from "src/Components/Layout";
+import Header from "src/Components/Header";
+import Footer from "src/Components/Footer";
+import Sidebar from "src/Components/Sidebar";
 
 import Search from "assets/search.png";
 import image from "assets/default-img.png";
