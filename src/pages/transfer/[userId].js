@@ -9,14 +9,14 @@ import transferAction from "src/redux/actions/transfer";
 
 import Image from "next/image";
 import styles from "styles/InputAmount.module.css";
-import Layout from "components/Layout";
-import Header from "components/Header";
-import Footer from "components/Footer";
-import Sidebar from "components/Sidebar";
+import Layout from "src/Components/Layout";
+import Header from "src/Components/Header";
+import Footer from "src/Components/Footer";
+import Sidebar from "src/Components/Sidebar";
 
 import image from "assets/default-img.png";
 import Edit from "assets/edit-2.png";
-import Button from "components/Button";
+import Button from "src/Components/Button";
 
 function Amount() {
   const router = useRouter();

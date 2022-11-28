@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 // import userAction from "../redux/actions/user";
 
 import Image from "next/image";
-import styles from "../styles/Header.module.css";
+import styles from "styles/Header.module.css";
 
-import image from "../assets/default-img.png";
-import bell from "../assets/bell.png";
+import image from "assets/default-img.png";
+import bell from "assets/bell.png";
 
 function Header() {
   // const dispatch = useDispatch();

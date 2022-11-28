@@ -2,11 +2,11 @@ import React from "react";
 
 import Image from "next/image";
 import styles from "styles/ChangePassword.module.css";
-import Layout from "components/Layout";
-import Header from "components/Header";
-import Footer from "components/Footer";
-import Sidebar from "components/Sidebar";
-import Button from "components/Button";
+import Layout from "src/Components/Layout";
+import Header from "src/Components/Header";
+import Footer from "src/Components/Footer";
+import Sidebar from "src/Components/Sidebar";
+import Button from "src/Components/Button";
 
 import Profile from "assets/profile3.png";
 import Edit from "assets/edit-2.png";
