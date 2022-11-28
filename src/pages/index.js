@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "styles/LandingPage.module.css";
-import Layout from "src/Components/Layout";
-import Button from "src/Components/Button";
+import Layout from "src/pages/Components/Layout";
+import Button from "src/pages/Components/Button";
 
 import { useRouter } from "next/router";
 

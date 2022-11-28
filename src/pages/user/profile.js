@@ -5,10 +5,10 @@ import Image from "next/image";
 import { Router, useRouter } from "next/router";
 
 import styles from "styles/Profile.module.css";
-import Layout from "src/Components/Layout";
-import Header from "src/Components/Header";
-import Footer from "src/Components/Footer";
-import Sidebar from "src/Components/Sidebar";
+import Layout from "src/pages/Components/Layout";
+import Header from "src/pages/Components/Header";
+import Footer from "src/pages/Components/Footer";
+import Sidebar from "src/pages/Components/Sidebar";
 // import Button from "components/Button";
 
 import image from "assets/default-img.png";
