@@ -13,8 +13,8 @@ function Sidelogin() {
           <p className={styles.title}>FazzPay</p>
         </div>
         <div className={styles.vector}>
-        <Image className={styles.vector} src={vector} alt="" />
-        <Image className={styles.vector1} src={vector4} alt="" />
+        <Image className={styles.vector} src={vector} alt="" priority/>
+        <Image className={styles.vector1} src={vector4} alt="" priority/>
           <div className={styles.wraperImg}>
             <Image className="img1" src={phone2} alt="" priority/>
           </div>

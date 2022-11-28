@@ -1,0 +1,31 @@
+.container {
+    max-width: 1440px;
+    height: 68px;
+    background-color: #6379F4;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 150px;
+}
+
+.flex {
+    display: flex;
+}
+
+.contacts {
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.text1 {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(239, 239, 239, 0.9);
+    margin: 0px;
+}
+
+.text2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #EFEFEF;
+    margin: 0px;
+}

@@ -19,6 +19,10 @@
     font-size: 18px;
     font-weight: 700;
     background-color: #ffffff;
+  } 
+
+  .login:hover {
+    background-color: #ebedfc;
   }
 
   .signup {
@@ -30,6 +34,10 @@
     background-color: #6379F4;
   }
 
+  .signup:hover {
+    background-color: #4d66f3;
+  }
+
   .try {
     width: 173px;
     height: 57px;
@@ -39,13 +47,30 @@
     background-color: #6379F4;
   }
 
-  .pageLogin {
-    width: 100%;
-    background-color: #DADADA;
-    font-size: 18px;
-    font-weight: 800;
-    color:#88888F;
+  .continue {
+    background-color: #6379F4;
+    width: 170px;
     height: 57px;
-    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
   }
   
+  .back {
+    background-color: #6379F4;
+    width: 197px;
+    height: 57px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+.change-password {
+  width: 51%;
+  height: 57px;
+  background-color: #DADADA;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  color: #88888F;
+}

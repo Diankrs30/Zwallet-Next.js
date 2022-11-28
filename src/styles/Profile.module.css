@@ -1,0 +1,110 @@
+.container {
+  max-width: 1440px;
+  background-color: rgba(250, 250, 250, 0.98);
+  margin: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.main {
+  padding: 40px 150px 35px;
+  gap: 20px;
+}
+
+/* aside */
+.aside {
+  width: 24%;
+}
+
+/* content */
+.content {
+  width: 76%;
+}
+
+.wrapper-info-user {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 25px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  padding-top: 48px;
+  padding-bottom: 63px;
+}
+
+.img-user {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
+
+.user-info {
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-edit {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.btn-edit p {
+  margin: 0px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #7a7886;
+  margin-left: 10px;
+}
+
+.icon-edit {
+  width: 11px;
+  height: 11px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #4d4b57;
+  margin-top: 15px;
+}
+
+.phone {
+  font-size: 16px;
+  font-weight: 400;
+  color: #7a7886;
+  margin-top: 10px;
+}
+
+.wrapper-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  gap: 20px;
+}
+
+.button {
+  width: 51%;
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 24px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #4d4b57;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.icon {
+  font-size: 24px;
+  color: #7e7d84;
+}

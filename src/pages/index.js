@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/LandingPage.module.css";
-import Layout from "../component/Layout";
-import Button from "../component/Button";
+import styles from "styles/LandingPage.module.css";
+import Layout from "components/Layout";
+import Button from "components/Button";
 
 import { useRouter } from "next/router";
 
@@ -27,12 +27,12 @@ export default function Home() {
 const router = useRouter();
 
 const handleLogin = () => {
-  console.log(">>>>>>>>>");
+  // console.log(">>>>>>>>>");
   router.push("/auth/login");
 }
 const handleSignup = () => {
-  console.log(">>>>>>>>>");
-  router.push("/auth/signup");
+  // console.log(">>>>>>>>>");
+  router.push("/auth/register");
 }
   return (
     <div className={styles.container}>
@@ -41,10 +41,10 @@ const handleSignup = () => {
         <sidebar className={styles.sidebar}>
           <p className={styles.title}>FazzPay</p>
         </sidebar>
-        <navbar className={`${styles.flex} ${styles.navbar}`}>
+        <div className={`${styles.flex} ${styles.navbar}`}>
           <Button text="Login" variant="login" onClick={() => handleLogin()}/>
           <Button text="Sign Up" variant="signup" onClick={() => handleSignup()}/>
-        </navbar>
+        </div>
       </header>
       <main className={styles.main}>
         <section className={`${styles["section-1"]} ${styles.flex}`}>
