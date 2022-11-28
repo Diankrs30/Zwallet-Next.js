@@ -18,6 +18,11 @@ export const forgotPassword =(body) => {
 }
 
 export const resetPassword =(body) => {
-  const URL = HOST + "/auth/reset-password";
-  return axios.post(URL, body)
+  const URL = `${HOST}/auth/reset-password`;
+  return axios.patch(URL, body)
+}
+
+export const logout = () => {
+  const URL = HOST + "/auth/logout";
+  return axios.post(URL)
 }

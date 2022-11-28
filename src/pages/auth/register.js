@@ -33,10 +33,14 @@ function Register() {
       !body.email ||
       !body.firstName ||
       !body.lastName ||
-      !body.password 
+      !body.password
     )
       return setEmptyForm(true);
-    body.email && body.firstName && body.lastName && body.password && setEmptyForm(false);
+    body.email &&
+      body.firstName &&
+      body.lastName &&
+      body.password &&
+      setEmptyForm(false);
   };
 
   const changeHandler = (e) => {
@@ -50,21 +54,14 @@ function Register() {
 
     const registerSuccess = () => {
       toast.success(
-        "Register success! Please check your email to verify your account",
-        {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-        }
+        "Register success! Please check your email to verify your account"
       );
       router.push("/auth/login");
     };
 
     const registerDenied = () => {
       // console.log(auth.error);
-      toast.error(`${auth.error}`, {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-      });
+      toast.error(`${auth.error}`);
     };
 
     dispatch(authAction.registerThunk(body, registerSuccess, registerDenied));
@@ -175,7 +172,6 @@ function Register() {
             >
               Sign Up
             </button>
-            <ToastContainer></ToastContainer>
           </form>
           <p className={styles.confirmation}>
             Don&#39;t have an account? Let&#39;s{" "}

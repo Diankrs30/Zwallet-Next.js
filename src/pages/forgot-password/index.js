@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import authAction from "src/redux/actions/auth";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Image from "next/image";
@@ -18,47 +18,48 @@ function ForgotPassword() {
   const dispatct = useDispatch();
   const router = useRouter();
   const auth = useSelector((state) => state.auth);
-  const [emptyForm, setEmptyForm] = useState(true);
+  // const isLoading = useSelector((state) => state.auth.isLoading);
   const [body, setBody] = useState({
-    linkDirect: "http://localhost:3000/auth/reset-passwordt/",
+    linkDirect: "http://localhost:3000/forgot-password/",
   });
-
-  const forgotSuccess = () => {
-    toast.success("Success! Please check your email to reset your password.", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
-  };
-
-  const forgotDenied = () => {
-    toast.error(`${auth.error}`, {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
-  };
-
-  const changeHandler = (e) => {
-    e.preventDefault();
-    dispatct(authAction.forgotThunk(body, forgotSuccess, forgotDenied));
-  };
+  const [emptyForm, setEmptyForm] = useState(true);
 
   const checkEmptyForm = (body) => {
     if (!body.email) return setEmptyForm(true);
-    body.mail && setEmptyForm(false)
-  }
+    body.email && setEmptyForm(false);
+  };
+
+  const changeHandler = (e) => {
+    setBody({ ...body, email : e.target.value });
+  };
+
+  console.log(body);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const forgotSuccess = () => {
+      toast.success("Success! Please check your email to reset your password.");
+    };
+  
+    const forgotDenied = () => {
+      toast.error(`${auth.error}`);
+    };
+    // console.log("mmmmmmmmm");
+    dispatct(authAction.forgotThunk(body, forgotSuccess, forgotDenied));
+  };
 
   useEffect(() => {
     checkEmptyForm(body);
-  }, [body])
+  }, [body]);
 
   useEffect(() => {
     if (auth.isLoading) setEmptyForm(true);
   }, [auth]);
-  
 
   return (
     <div className={styles.container}>
-      <Layout title=""></Layout>
+      <Layout title="Forgot Password"></Layout>
       <main className={`${styles["main-content"]} ${styles.flex}`}>
         <aside className={styles.aside}>
           <SidebarAuth></SidebarAuth>
@@ -74,26 +75,32 @@ function ForgotPassword() {
             link to your email and you will be directed to the reset password
             screens.
           </p>
-          <form className={styles.login}>
+          <form className={styles.login} onSubmit={handleSubmit}>
             <div className={`${styles.formLogin} ${styles.flex}`}>
               <Image src={mail} alt="mail" />
               <input
                 className={styles.inputLogin}
                 type="text"
-                name= "email"
+                name="email"
                 placeholder="Enter your e-mail"
                 required
                 onChange={changeHandler}
               ></input>
             </div>
+            <button
+              className={`${styles.btn}`}
+              type="submit"
+              disabled={emptyForm}
+            >
+              Confirm
+            </button>
           </form>
-          <button
-            className={`${styles.btn}`}
-            type="submit"
-            disabled={emptyForm}
-          >
-            Confirm
-          </button>
+          <p className={styles.confirmation}>
+            Back to{" "}
+            <Link href={"/auth/login"}>
+              <span className={styles.textSpan}>Login</span>
+            </Link>
+          </p>
         </section>
       </main>
     </div>

@@ -67,8 +67,8 @@ function Dashboard() {
             <section className={`${styles.balance} ${styles.flex}`}>
               <div className={`${styles["wrapper-text"]} ${styles.flex}`}>
                 <p className={styles.text1}>Balance</p>
-                <p className={styles.text2}>{rupiah(profile.balance?? 0)}</p>
-                <p className={styles.text3}>{profile.noTelp?? "-"}</p>
+                <p className={styles.text2}>{rupiah(profile.balance ? profile.balance : 0)}</p>
+                <p className={styles.text3}>{profile.noTelp ? profile.noTelp : "-"}</p>
               </div>
               <div className={`${styles.button} ${styles.flex}`}>
                 <button

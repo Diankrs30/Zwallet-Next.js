@@ -1,12 +1,37 @@
-import React, { use, useState } from "react";
-import Styles from "../styles/Sidebar.module.css";
+import React, { useState, useEffect } from "react";
+import Styles from "styles/Sidebar.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import authAction from "../redux/actions/auth";
+import userAction from "src/redux/actions/user";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import Modal from "components/ModalTopUp"
 
 function Sidebar() {
-  const [selectDashboard, setDashboard] = useState(true);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const auth = useSelector((state) => state.auth.userData);
+  console.log(auth);
+  const [selectDashboard, setDashboard] = useState(false);
   const [selectTransfer, setTransfer] = useState(false);
   const [selectTopUp, setTopUp] = useState(false);
   const [selectProfile, setProfile] = useState(false);
   const [show, setShow] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleModal = () => setOpenModal(!openModal);
+
+  const logoutSuccess = () => {
+    toast.success("Logout success!");
+    router.push("/auth/login");
+  };
+
+  const logoutHandler = () => {
+    dispatch(authAction.logoutThunk(logoutSuccess));
+  };
 
   const dashboardHandler = (e) => {
     e.preventDefault();
@@ -14,6 +39,7 @@ function Sidebar() {
     setTransfer(false);
     setTopUp(false);
     setProfile(false);
+    router.push("/dashboard");
   };
   const transferHandler = (e) => {
     e.preventDefault();
@@ -21,6 +47,7 @@ function Sidebar() {
     setTransfer(true);
     setTopUp(false);
     setProfile(false);
+    router.push("/transfer");
   };
   const topupHandler = (e) => {
     e.preventDefault();
@@ -28,6 +55,7 @@ function Sidebar() {
     setTransfer(false);
     setTopUp(true);
     setProfile(false);
+    setShowModal(!showModal);
   };
   const profileHandler = (e) => {
     e.preventDefault();
@@ -35,11 +63,30 @@ function Sidebar() {
     setTransfer(false);
     setTopUp(false);
     setProfile(true);
+    router.push("/user/profile");
   };
 
   const toggleHandler = () => {
     setShow(!show);
   };
+
+  useEffect(() => {
+    if (
+      router.pathname.includes("transfer") ||
+      router.pathname.includes("ammount") ||
+      router.pathname.includes("confirmation")
+    )
+      return setTransfer(true);
+    if (router.pathname.includes("dashboard")) return setDashboard(true);
+    if (router.pathname.includes("profile")) return setProfile(true);
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      userAction.getUserByIdThunk(auth.token, auth.id)
+    );
+    if (auth.isLoading) setIsLoading(true);
+  }, [auth]);
 
   return (
     <>
@@ -49,6 +96,11 @@ function Sidebar() {
       >
         <i className="fa-solid fa-bars"></i>
       </div>
+      <Modal
+        open={showModal}
+        setOpen={setShowModal}
+        token={auth.token}
+      />
       {show && (
         <>
           <div className={Styles.test}></div>
@@ -115,7 +167,7 @@ function Sidebar() {
                 Profile
               </p>
             </div>
-            <div className={Styles.logout}>
+            <div className={Styles.logout} onClick={logoutHandler}>
               <i className="fa-solid fa-arrow-right-from-bracket"></i>
               <p className={Styles["close"]}>Logout</p>
             </div>
@@ -179,7 +231,7 @@ function Sidebar() {
           ></i>
           <p className={`${Styles.textDasboard} ${Styles.close}`}>Profile</p>
         </div>
-        <div className={Styles.logout}>
+        <div className={Styles.logout} onClick={logoutHandler}>
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
           <p className={Styles["close"]}>Logout</p>
         </div>

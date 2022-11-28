@@ -12,6 +12,8 @@ const ACTION_STRING = {
   updateImg: "USER_UPDATEIMAGE",
   forgotPwd: "AUTH_FORGOTPASSWORD",
   resetPwd: "AUTH_RESETPASSWORD",
+  authLogout: "AUTH_LOGOUT",
+  transactionTopUp: "TOP_UP",
   pending: `_${ActionType.Pending}`,
   fulfilled: `_${ActionType.Fulfilled}`,
   rejected: `_${ActionType.Rejected}`,

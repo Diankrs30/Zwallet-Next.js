@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import authAction from "src/redux/actions/auth";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Image from "next/image";
 import styles from "styles/Forgot_password.module.css";
-import Button from "components/Button";
 import Layout from "components/Layout";
 import SidebarAuth from "components/SidebarAuth";
 
@@ -20,48 +19,55 @@ function ForgotPassword() {
   const dispatct = useDispatch();
   const router = useRouter();
   const auth = useSelector((state) => state.auth);
-  const [isPwdShown, setIsPwdShown] = useState(false);
+  const [isPwdNewShown, setIsPwdNewShown] = useState(false);
+  const [isPwdConfirmShown, setIsPwdConfirmShown] = useState(false);
+  const [notMatched, setNotMatched] = useState(false);
   const [emptyForm, setEmptyForm] = useState(true);
   const [body, setBody] = useState({
-    linkDirect: "http://localhost:3000/auth/forgo-passwordt/",
+    keysChangePassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
 
-  const forgotSuccess = () => {
-    toast.success("Success! Please check your email to reset your password.", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
-  };
-
-  const forgotDenied = () => {
-    toast.error(`${auth.error}`, {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
+  const checkEmptyForm = (body) => {
+    if (!body.newPassword || !body.confirmPassword) return setEmptyForm(true);
+    body.newPassword && body.confirmPassword && setEmptyForm(false);
   };
 
   const changeHandler = (e) => {
-    e.preventDefault();
-    dispatct(authAction.forgotThunk(body, forgotSuccess, forgotDenied));
+    setBody({
+      ...body,
+      [e.target.name]: e.target.value,
+      keysChangePassword: router.query.otp,
+    });
   };
 
-  const checkEmptyForm = (body) => {
-    if (!body.email) return setEmptyForm(true);
-    body.mail && setEmptyForm(false)
-  }
+  const resetSuccess = () => {
+    toast.success("Success! Password has been change.");
+    router.push("/auth/login");
+  };
+
+  const resetDenied = () => {
+    toast.error(`${auth.error}`);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (body.newPassword !== body.confirmPassword) return setNotMatched(true);
+    dispatct(authAction.resetThunk(body, resetSuccess, resetDenied));
+  };
 
   useEffect(() => {
     checkEmptyForm(body);
-  }, [body])
+  }, [body]);
 
   useEffect(() => {
     if (auth.isLoading) setEmptyForm(true);
   }, [auth]);
-  
 
   return (
     <div className={styles.container}>
-      <Layout title=""></Layout>
+      <Layout title="Reset Password"></Layout>
       <main className={`${styles["main-content"]} ${styles.flex}`}>
         <aside className={styles.aside}>
           <SidebarAuth></SidebarAuth>
@@ -77,8 +83,8 @@ function ForgotPassword() {
             link to your email and you will be directed to the reset password
             screens.
           </p>
-          <form className={styles.login}>
-          <div className={`${styles.formLogin} ${styles.flex}`}>
+          <form className={styles.login} onSubmit={handleSubmit}>
+            <div className={`${styles.formLogin} ${styles.flex}`}>
               <Image
                 className={styles.icon}
                 src={lock}
@@ -88,19 +94,20 @@ function ForgotPassword() {
               />
               <input
                 className={styles.inputLogin}
-                type={isPwdShown ? "text" : "password"}
-                name="password"
+                type={isPwdNewShown ? "text" : "password"}
+                name="newPassword"
+                placeholder="Enter your new password"
                 required
-                placeholder="Create new password"
                 onChange={changeHandler}
+                onClick={() => setNotMatched(false)}
               ></input>
               <Image
                 className={styles.icon}
-                src={isPwdShown ? eye : eyeSlash}
+                src={isPwdNewShown ? eye : eyeSlash}
                 alt="password"
                 width={24}
                 heigth={24}
-                onClick={() => setIsPwdShown(!isPwdShown)}
+                onClick={() => setIsPwdNewShown(!isPwdNewShown)}
               />
             </div>
             <div className={`${styles.formLogin} ${styles.flex}`}>
@@ -113,29 +120,43 @@ function ForgotPassword() {
               />
               <input
                 className={styles.inputLogin}
-                type={isPwdShown ? "text" : "password"}
-                name="password"
+                type={isPwdConfirmShown ? "text" : "password"}
+                name="confirmPassword"
                 required
-                placeholder="Create new password"
+                placeholder="Enter your confirm password"
                 onChange={changeHandler}
+                onClick={() => setNotMatched(false)}
               ></input>
               <Image
                 className={styles.icon}
-                src={isPwdShown ? eye : eyeSlash}
+                src={isPwdConfirmShown ? eye : eyeSlash}
                 alt="password"
                 width={24}
                 heigth={24}
-                onClick={() => setIsPwdShown(!isPwdShown)}
+                onClick={() => setIsPwdConfirmShown(!isPwdConfirmShown)}
               />
             </div>
+            <p
+              className={`${styles["notif-password"]} ${
+                notMatched ? styles["show"] : styles["hide"]
+              }`}
+            >
+              Password did not matched! Please retype your password.
+            </p>
+            <button
+              className={`${styles.btn}`}
+              type="submit"
+              disabled={emptyForm}
+            >
+              Reset Password
+            </button>
           </form>
-          <button
-            className={`${styles.btn}`}
-            type="submit"
-            disabled={emptyForm}
-          >
-            Confirm
-          </button>
+          <p className={styles.confirmation}>
+            Back to{" "}
+            <Link href={"/auth/login"}>
+              <span className={styles.textSpan}>Login</span>
+            </Link>
+          </p>
         </section>
       </main>
     </div>

@@ -1,5 +1,5 @@
 import ACTION_STRING from "./actionStrings";
-import { login, register, forgotPassword  } from "../../utils/auth";
+import { login, register, logout, forgotPassword, resetPassword  } from "../../utils/auth";
 
 const registerPending = () => ({
   type: ACTION_STRING.authRegister.concat(ACTION_STRING.pending),
@@ -26,6 +26,20 @@ const loginRejected = (error) => ({
 
 const loginFulfilled = (data) => ({
   type: ACTION_STRING.authLogin.concat(ACTION_STRING.fulfilled),
+  payload: { data },
+});
+
+const logoutPending = () => ({
+  type: ACTION_STRING.authLogout.concat(ACTION_STRING.pending),
+});
+
+const logoutRejected = (error) => ({
+  type: ACTION_STRING.authLogout.concat(ACTION_STRING.rejected),
+  payload: { error },
+});
+
+const logoutFulfilled = (data) => ({
+  type: ACTION_STRING.authLogout.concat(ACTION_STRING.fulfilled),
   payload: { data },
 });
 
@@ -85,6 +99,19 @@ const loginThunk = (body, cbSuccess, cbDenied) => {
   };
 };
 
+const logoutThunk = (cbSuccess) => {
+  return async (dispatch) => {
+    try {
+      dispatch(logoutPending());
+      const result = await logout();
+      dispatch(logoutFulfilled(result.data));
+      if (typeof cbSuccess === "function") cbSuccess(result.data);
+    } catch (error) {
+      dispatch(logoutRejected(error));
+    }
+  };
+};
+
 const forgotThunk = (body, cbSuccess, cbDenied) => {
   return async (dispatch) => {
     try {
@@ -103,6 +130,7 @@ const resetThunk = (body, cbSuccess, cbDenied) => {
   return async (dispatch) => {
     try {
       dispatch(resetPending());
+      console.log("cek result",body);
       const result = await resetPassword(body);
       dispatch(resetFulfilled(result.data));
       if (typeof cbSuccess === "function") cbSuccess(result.data);
@@ -117,7 +145,10 @@ const authAction = {
   registerThunk,
   loginThunk,
   forgotThunk,
-  resetThunk
+  resetThunk,
+  logoutThunk,
 };
 
 export default authAction;
+
+

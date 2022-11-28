@@ -13,8 +13,16 @@ const initialState = {
 };
 
 const authReducer = (prevState = initialState, { type, payload }) => {
-  const { authRegister, authLogin, forgotPwd, pending, rejected, fulfilled } =
-    ACTION_STRING;
+  const {
+    authRegister,
+    authLogin,
+    authLogout,
+    forgotPwd,
+    resetPwd,
+    pending,
+    rejected,
+    fulfilled,
+  } = ACTION_STRING;
   switch (type) {
     case authRegister + pending:
       return {
@@ -43,13 +51,12 @@ const authReducer = (prevState = initialState, { type, payload }) => {
         isError: false,
         isTrue: false,
       };
-      case authLogin + rejected:
-      // console.log(payload.error);
+    case authLogin + rejected:
       return {
         ...prevState,
         isError: true,
         isLoading: false,
-        error: payload.error.response.data.msg,
+        error: payload.error,
       };
     case authLogin + fulfilled:
       return {
@@ -61,8 +68,26 @@ const authReducer = (prevState = initialState, { type, payload }) => {
           pin: payload.data.data.pin,
         },
       };
-      
-      case forgotPwd + pending:
+
+    case authLogout + pending:
+      return {
+        ...prevState,
+        isLoading: true,
+        isError: false,
+        isFulfilled: false,
+      };
+    case authLogout + rejected:
+      return {
+        ...prevState,
+        isError: true,
+        isLoading: false,
+        error: payload.error,
+      };
+    case authLogout + fulfilled:
+      console.log("cekcekecekcek");
+      return initialState;
+
+    case forgotPwd + pending:
       return {
         ...prevState,
         isLoading: true,
@@ -74,13 +99,40 @@ const authReducer = (prevState = initialState, { type, payload }) => {
         ...prevState,
         isError: true,
         isLoading: false,
-        error: payload.error.response.data.msg,
+        error: payload.error,
       };
     case forgotPwd + fulfilled:
       return {
         ...prevState,
         isLoading: false,
+        userData: {
+          id: payload.data.data.id,
+          token: payload.data.data.token,
+          pin: payload.data.data.pin,
+        },
       };
+
+    case resetPwd + pending:
+      return {
+        ...prevState,
+        isLoading: true,
+        isError: false,
+        isFulfilled: false,
+      };
+    case resetPwd + rejected:
+      console.log("cek error", payload.error);
+      return {
+        ...prevState,
+        isError: true,
+        isLoading: false,
+        error: payload.error,
+      };
+    case resetPwd + fulfilled:
+      return {
+        ...prevState,
+        isLoading: false,
+      };
+
     default:
       return prevState;
   }

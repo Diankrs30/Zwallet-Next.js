@@ -39,27 +39,16 @@ function Login() {
   const loginSuccess = (data) => {
     console.log(">>>>>>>>>>>>> callbackSuccess", data.data.pin);
     if (data.data.pin === null) {
-      toast.success("Login succes! Please create your pin fisrt"),
-        {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-        };
+      toast.success("Login succes! Please create your pin fisrt")
       router.push("/create-pin");
     } else {
-      toast.success("Login succes!"),
-      {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-      };
+      toast.success("Login succes!")
     router.push("/dashboard");
     }
   };
 
   const loginDenied = () => {
-    toast.error(`Login failed! ${auth.error}`, {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
+    toast.error(`Login failed! ${auth.error}`);
   };
 
   const handleSubmit = (e) => {
@@ -123,7 +112,7 @@ function Login() {
               />
             </div>
             <div className={styles.forgotPwd}>
-              <Link href={"/auth/forgot-password"}>Forgot password?</Link>
+              <Link href={"/forgot-password"}>Forgot password?</Link>
             </div>
             <button
               className={`${styles.btn}`}
@@ -132,7 +121,6 @@ function Login() {
             >
               Login
             </button>
-            <ToastContainer />
           </form>
           <p className={styles.confirmation}>
             Don&#39;t have an account? Let&#39;s{" "}

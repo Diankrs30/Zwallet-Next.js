@@ -6,7 +6,7 @@ function Layout({ children, title = "FazzPay", isHeaderShown = false }) {
   return (
     <>
       <Head>
-        <title>FazzPay | {title}</title>
+        <title>{`FazzPay | ${title}`}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* {isHeaderShown && <Header />}
