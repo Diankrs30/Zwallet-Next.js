@@ -6,22 +6,22 @@ import Button from "src/Components/Button";
 
 import { useRouter } from "next/router";
 
-import phone from "../assets/phone.svg";
-import phone2 from "../assets/phone2.svg";
-import playstore from "../assets/playStore.svg";
-import applestore from "../assets/appleStore.svg";
-import microsoft from "../assets/microsoft.svg";
-import dropbox from "../assets/dropbox.svg";
-import hm from "../assets/hm.svg";
-import bnb from "../assets/bnb.svg";
-import canon from "../assets/canon.svg";
-import dell from "../assets/dell.svg";
-import phone_icon from "../assets/phone-icon.svg";
-import key from "../assets/key.svg";
-import download from "../assets/download.svg";
-import profile from "../assets/profile.svg";
-import arrow_left from "../assets/arrow-left.svg";
-import arrow_right from "../assets/arrow-right.svg";
+import phone from "assets/phone.svg";
+import phone2 from "assets/phone2.svg";
+import playstore from "assets/playStore.svg";
+import applestore from "assets/appleStore.svg";
+import microsoft from "assets/microsoft.svg";
+import dropbox from "assets/dropbox.svg";
+import hm from "assets/hm.svg";
+import bnb from "assets/bnb.svg";
+import canon from "assets/canon.svg";
+import dell from "assets/dell.svg";
+import phone_icon from "assets/phone-icon.svg";
+import key from "assets/key.svg";
+import download from "assets/download.svg";
+import profile from "assets/profile.svg";
+import arrow_left from "assets/arrow-left.svg";
+import arrow_right from "assets/arrow-right.svg";
 
 export default function Home() {
 const router = useRouter();

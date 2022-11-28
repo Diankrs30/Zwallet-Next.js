@@ -1,17 +1,17 @@
 import React from "react";
 
 import Image from "next/image";
-import styles from "../../styles/Success.module.css";
-import Layout from "../../component/Layout";
-import Header from "../../component/Header";
-import Footer from "../../component/Footer";
-import Sidebar from "../../component/Sidebar";
-import Button from "../../component/Button";
+import styles from "styles/Success.module.css";
+import Layout from "components/Layout";
+import Header from "components/Header";
+import Footer from "components/Footer";
+import Sidebar from "components/Sidebar";
+import Button from "components/Button";
 
-import Profile from "../../assets/profile3.png";
-import Donwload from "../../assets/download.png";
-import Success from "../../assets/success.svg";
-import Failed from "../../assets/failed.svg";
+import Profile from "assets/profile3.png";
+import Donwload from "assets/download.png";
+import Success from "assets/success.svg";
+import Failed from "assets/failed.svg";
 
 function home() {
   return (

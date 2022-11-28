@@ -1,15 +1,15 @@
 import React from "react";
 
 import Image from "next/image";
-import styles from "../../styles/ChangePhone.module.css";
-import Layout from "../../component/Layout";
-import Header from "../../component/Header";
-import Footer from "../../component/Footer";
-import Sidebar from "../../component/Sidebar";
-import Button from "../../component/Button";
+import styles from "styles/ChangePhone.module.css";
+import Layout from "components/Layout";
+import Header from "components/Header";
+import Footer from "components/Footer";
+import Sidebar from "components/Sidebar";
+import Button from "components/Button";
 
-import Profile from "../../assets/profile3.png";
-import Edit from "../../assets/edit-2.png";
+import Profile from "assets/profile3.png";
+import Edit from "assets/edit-2.png";
 
 function home() {
   return (
