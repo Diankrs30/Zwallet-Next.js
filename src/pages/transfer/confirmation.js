@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Image from "next/image";
-import styles from "../../styles/Confirmation.module.css";
-import Layout from "../../component/Layout";
-import Header from "../../component/Header";
-import Footer from "../../component/Footer";
-import Sidebar from "../../component/Sidebar";
-import Button from "../../component/Button";
+import styles from "styles/Confirmation.module.css";
+import Layout from "components/Layout";
+import Header from "components/Header";
+import Footer from "components/Footer";
+import Sidebar from "components/Sidebar";
+import Button from "components/Button";
+import { currency } from "../../helper/currency";
+import Modal from "components/ModulPin";
 
-import Profile from "../../assets/profile3.png";
-import Edit from "../../assets/edit-2.png";
+import image from "assets/default-img.png";
 
-function home() {
+function Confirmation() {
+  const transferData = useSelector((state) => state.transfer.transferData);
+  const { receiverData } = transferData;
+  const userBalance = useSelector((state) => state.user.profile.balance);
+  const link = process.env.NEXT_PUBLIC_CLOUDINARY_IMAGE;
+  const [open, setOpen] = useState(false);
   return (
     <div className={styles.container}>
       <Layout title="Confirmation"></Layout>
@@ -32,15 +39,16 @@ function home() {
                   <div className={`${styles["info-user"]} ${styles.flex}`}>
                     <div className={styles["img-user"]}>
                       <Image
-                        src={Profile}
+                        src={`${link}/${receiverData?.image}` || image}
                         alt="img"
-                        width="56px"
-                        height="56px"
+                        width={70}
+                        height={70}
+                        style={{ borderRadius: "10px" }}
                       ></Image>
                     </div>
                     <div className={styles["data-user"]}>
-                      <p className={styles.name}>Robert Chandler</p>
-                      <p className={styles.phone}>+62 813-8492-9994</p>
+                      <p className={styles.name}>{`${receiverData?.firstName} ${receiverData?.lastName}`}</p>
+                      <p className={styles.phone}>{receiverData?.noTelp}</p>
                     </div>
                   </div>
                 </div>
@@ -51,37 +59,48 @@ function home() {
               <div className={styles["wrapper-card"]}>
                 <div className={styles["card-confirmation"]}>
                   <p className={styles.text1}>Amount</p>
-                  <p className={styles.text2}>Rp100.000</p>
+                  <p className={styles.text2}>{`Rp. ${currency(
+                  transferData.amount
+                )}`}</p>
                 </div>
               </div>
               <div className={styles["wrapper-card"]}>
                 <div className={styles["card-confirmation"]}>
                   <p className={styles.text1}>Balance Left</p>
-                  <p className={styles.text2}>Rp20.000</p>
+                  <p className={styles.text2}>{`Rp. ${currency(
+                  userBalance - transferData.amount
+                )}`}</p>
                 </div>
               </div>
               <div className={styles["wrapper-card"]}>
                 <div className={styles["card-confirmation"]}>
                   <p className={styles.text1}>Date & Time</p>
-                  <p className={styles.text2}>May 11, 2020 - 12.20</p>
+                  <p className={styles.text2}>{Date(transferData.date)}</p>
                 </div>
               </div>
               <div className={styles["wrapper-card"]}>
                 <div className={styles["card-confirmation"]}>
                   <p className={styles.text1}>Notes</p>
-                  <p className={styles.text2}>For buying some socks</p>
+                  <p className={styles.text2}>{transferData.notes || "-"}</p>
                 </div>
               </div>
               <div className={styles["wrapper-button"]}>
-                <Button text="Continue" variant="continue" />
+                <Button text="Continue" variant="continue" onClick={() => setOpen(true)} />
               </div>
             </div>
           </section>
         </section>
         <Footer />
+        <Modal
+        open={open}
+        setOpen={setOpen}
+        amount={transferData.amount}
+        notes={transferData.notes}
+        receiverId={receiverData?.id}
+      />
       </main>
     </div>
   );
 }
 
-export default home;
+export default Confirmation;

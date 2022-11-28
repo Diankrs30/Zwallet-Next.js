@@ -34,3 +34,5 @@ const topUpReducer = (prevState = initialState, { type, payload }) => {
       return prevState;
   }
 };
+
+export default topUpReducer;

@@ -28,7 +28,7 @@ function Header() {
               width={52}
               height={52}
               quality={52}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", borderRadius: "10px" }}
               alt="foto profile"
             />
           </div>

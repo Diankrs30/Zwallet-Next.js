@@ -2,11 +2,22 @@ import axios from "axios";
 
 const HOST = process.env.NEXT_PUBLIC_BACKEND_HOST;
 
-export const checkPin = (pin, token) => {
-  const URL = HOST + "/user/pin?pin=" + pin;
-  // console.log("url cek pin", URL);
-  return axios.get(URL, { headers: { Authorization: "Bearer " + token } });
+const config = (token) => {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 };
+
+// export const checkPin = (pin, token) => {
+//   const URL = HOST + "/user/pin?pin=" + pin;
+//   // console.log("url cek pin", URL);
+//   return axios.get(URL, { headers: { Authorization: "Bearer " + token } });
+// };
+
+export const checkPin = (token, pin) =>
+  axios.get(`${HOST}/user/pin/${pin}`, config(token));
 
 export const updatePin = (id, body, token) => {
   const URL = HOST + `/user/pin/${id}`;
@@ -15,7 +26,7 @@ export const updatePin = (id, body, token) => {
   });
 };
 
-export const getUserById = (id, token) => {
+export const getUserById = (token, id) => {
   const URL = HOST + `/user/profile/${id}`
   return axios.get(URL, {
     headers: { Authorization: "Bearer " + token },
@@ -23,7 +34,8 @@ export const getUserById = (id, token) => {
 }
 
 export const getDataUser = (param, token) => {
-  const URL = HOST + `/user?page=${param.page}&limit=${param.per_page}&search=${param.search}&sort=${param.sort}`
+  const URL = param.search ? HOST + `/user?page=${param.page}&limit=${param.per_page}&search=${param.search}&sort=${param.sort}` :
+  HOST + `/user?page=${param.page}&limit=${param.per_page}&sort=${param.sort}`
   return axios.get(URL, {
     headers: { Authorization: "Bearer " + token },
   })

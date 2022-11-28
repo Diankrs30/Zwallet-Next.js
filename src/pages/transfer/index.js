@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userAction from "../../redux/actions/user";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 import Image from "next/image";
 import styles from "styles/SeacrhReceiver.module.css";
@@ -9,29 +11,42 @@ import Header from "components/Header";
 import Footer from "components/Footer";
 import Sidebar from "components/Sidebar";
 
-import Profile from "assets/profile3.png";
 import Search from "assets/search.png";
 import image from "assets/default-img.png";
+import { getAllUser } from "utils/transfer";
 
 function SearchReceiver() {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth.userData);
-  const dataUser = useSelector((state) => state.user.dataUser);
+  const router = useRouter();
+  const [userData, setUserData] = useState([]);
+  const [paginationData, setPaginationData] = useState({});
+  const token = useSelector((state) => state.auth.userData.token);
+  let page = parseInt(router.query.page) || 1;
   const link = process.env.NEXT_PUBLIC_CLOUDINARY_IMAGE;
 
-  const getDataUser = () => {
-    const param = {
-      page: 5,
-      per_page: 6,
-      search: "",
-      sort: "firstName ASC",
-    };
-    dispatch(userAction.getDataUserThunk(param, auth.token));
+  const searchHandler = (e) => {
+    e.preventDefault();
+    setQuery({ ...query, search: search });
   };
 
   useEffect(() => {
-    getDataUser();
-  }, []);
+    router.query.q
+      ? getAllUser(token, page, router.query.q)
+          .then((res) => {
+            setUserData(res.data.data);
+
+            setPaginationData(res.data.pagination);
+          })
+          .catch((err) => console.log(err))
+      : getAllUser(token, page)
+          .then((res) => {
+            setUserData(res.data.data);
+            setPaginationData(res.data.pagination);
+          })
+          .catch((err) => console.log(err));
+    // dispatch(transferAction.transferReset());
+  }, [router.query]);
+  console.log(userData);
 
   return (
     <div className={styles.container}>
@@ -47,41 +62,65 @@ function SearchReceiver() {
               <div className={styles.title}>
                 <p>Search Receiver</p>
               </div>
-              <div className={`${styles["wrapper-search"]} ${styles.flex}`}>
+              <form
+                className={`${styles["wrapper-search"]} ${styles.flex}`}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  router.push(`/transfer?q=${e.target.q.value}`);
+                }}
+              >
                 <Image src={Search} alt="search"></Image>
                 <input
-                  className={styles.search}
+                  className={styles.inputSearch}
                   type="text"
+                  name="q"
                   placeholder="Search receiver here"
                 ></input>
-              </div>
+              </form>
 
               <div className={styles["wrapper-user"]}>
-                {dataUser.length > 0 &&
-                  dataUser.map((item, idx) => {
+                {userData.length > 0 &&
+                  userData.map((item, idx) => {
                     return (
-
-                    <div className={`${styles["card-user"]} ${styles.flex}`} key={idx}>
-                      <div className={`${styles["info-user"]} ${styles.flex}`}>
-                        <div className={styles["img-user"]}>
-                          <Image
-                            src={item.image !== null ? `${link}/${item.image}` : image} 
-                            width={56}height={56} quality={56} alt="foto-profile"
-                            // alt="img"
-                            // width="56px"
-                            // height="56px"
-                          />
+                      <Link
+                        href={`/transfer/amount?receiver=${item.id}`}
+                        passHref
+                        key={idx}
+                      >
+                        <div
+                          className={`${styles["card-user"]} ${styles.flex}`}
+                        >
+                          <div
+                            className={`${styles["info-user"]} ${styles.flex}`}
+                          >
+                            <div className={styles["img-user"]}>
+                              <Image
+                                src={
+                                  item.image !== null
+                                    ? `${link}/${item.image}`
+                                    : image
+                                }
+                                width={70}
+                                height={70}
+                                quality={70}
+                                alt="foto-profile"
+                                style={{ borderRadius: "10px" }}
+                              />
+                            </div>
+                            <div className={styles["data-user"]}>
+                              <p
+                                className={styles.name}
+                              >{`${item.firstName} ${item.lastName}`}</p>
+                              <p className={styles.phone}>{item.noTelp}</p>
+                            </div>
+                          </div>
                         </div>
-                        <div className={styles["data-user"]}>
-                          <p className={styles.name}>{item.firstName}</p>
-                          <p className={styles.phone}>{item.noTelp}</p>
-                        </div>
-                      </div>
-                    </div>
-                    )
+                      </Link>
+                    );
                   })}
               </div>
             </div>
+            <div></div>
           </section>
         </section>
         <Footer />

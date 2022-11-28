@@ -24,7 +24,7 @@ const userReducer = (prevState = initialState, {type, payload}) => {
             ...prevState,
             isError: true,
             isLoading: false,
-            error: payload.error.response.data.msg,
+            error: payload.error,
           };
         case getUserById + fulfilled:
           return {
@@ -51,7 +51,7 @@ const userReducer = (prevState = initialState, {type, payload}) => {
             return {
               ...prevState,
               isLoading: false,
-              dataUser: payload.data,
+              dataUser: payload.data.data,
             };
              
         default:

@@ -1,20 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
+import { getUserById } from "../../utils/user";
+import { currency } from "src/helper/currency";
+import transferAction from "src/redux/actions/transfer";
 
 import Image from "next/image";
-import styles from "../../styles/InputAmount.module.css";
-import Layout from "../../component/Layout";
-import Header from "../../component/Header";
-import Footer from "../../component/Footer";
-import Sidebar from "../../component/Sidebar";
+import styles from "styles/InputAmount.module.css";
+import Layout from "components/Layout";
+import Header from "components/Header";
+import Footer from "components/Footer";
+import Sidebar from "components/Sidebar";
 
-import Profile from "../../assets/profile3.png";
-import Edit from "../../assets/edit-2.png";
-import Button from "../../component/Button";
+import image from "assets/default-img.png";
+import Edit from "assets/edit-2.png";
+import Button from "components/Button";
 
-function home() {
+function Amount() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const receiverId = router.query.receiver;
+  const token = useSelector((state) => state.auth.userData.token);
+  const userBalance = useSelector((state) => state.user.profile.balance);
+  const [amount, setAmount] = useState(null);
+  const [notes, setNotes] = useState("");
+  const [receiverData, setReceiverData] = useState({});
+  const link = process.env.NEXT_PUBLIC_CLOUDINARY_IMAGE;
+
+  useEffect(() => {
+    getUserById(token, receiverId)
+      .then((res) => {
+        setReceiverData({ ...res.data.data });
+      })
+      .catch((err) => console.log(err));
+  }, [token, receiverId]);
+
+  const amountHandler = (e) => setAmount(e.target.value);
+  const notesHandler = (e) => setNotes(e.target.value);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (!amount)
+      return toast.error("Input the amount of money you want to transfer");
+    if (parseInt(amount) > userBalance)
+      return toast.error("insufficient balance");
+    if (amount < 1000)
+      return toast.error(
+        "insufficient amount, only more than Rp. 1000 are allowed"
+      );
+    const date = new Date();
+    const body = {
+      receiverId: receiverId,
+      amount: parseInt(amount),
+      date,
+      notes,
+      receiverData,
+    };
+    dispatch(transferAction.transferData(body));
+    router.push("/transfer/confirmation");
+  };
+
   return (
     <div className={styles.container}>
-      <Layout title="Search Receiver"></Layout>
+      <Layout title="Transfer"></Layout>
       <main>
         <Header />
         <section className={`${styles.main} ${styles.flex}`}>
@@ -32,15 +81,18 @@ function home() {
                   <div className={`${styles["info-user"]} ${styles.flex}`}>
                     <div className={styles["img-user"]}>
                       <Image
-                        src={Profile}
+                        src={`${link}/${receiverData.image}` || image}
                         alt="img"
-                        width="56px"
-                        height="56px"
+                        width={56}
+                        height={56}
+                        style={{ borderRadius: "10px" }}
                       ></Image>
                     </div>
                     <div className={styles["data-user"]}>
-                      <p className={styles.name}>Robert Chandler</p>
-                      <p className={styles.phone}>+62 813-8492-9994</p>
+                      <p
+                        className={styles.name}
+                      >{`${receiverData.firstName} ${receiverData.lastName}`}</p>
+                      <p className={styles.phone}>{receiverData.noTelp}</p>
                     </div>
                   </div>
                 </div>
@@ -52,16 +104,32 @@ function home() {
               </p>
 
               <div className={`${styles["wrapper-transfer"]} ${styles.flex}`}>
-                <div className={styles.nominal}>0.00</div>
-                <div className={styles.saldo}>Rp120.000 Available</div>
+                <input
+                  className={styles.nominal}
+                  type="number"
+                  placeholder="RP.0.00"
+                  onChange={amountHandler}
+                ></input>
+                <div className={styles.saldo}>{`Rp . ${currency(
+                  userBalance
+                )} Available`}</div>
                 <div className={styles.edit}>
                   <Image src={Edit} alt="edit"></Image>
-                  <input className={styles.input} type="text" placeholder="Add some note"></input>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Add some notes"
+                    onChange={notesHandler}
+                  ></input>
                 </div>
               </div>
 
               <div className={styles["wrapper-button"]}>
-                <Button text="Continue" variant="continue"/>
+                <Button
+                  text="Continue"
+                  variant="continue"
+                  onClick={submitHandler}
+                />
               </div>
             </div>
           </section>
@@ -72,4 +140,4 @@ function home() {
   );
 }
 
-export default home;
+export default Amount;

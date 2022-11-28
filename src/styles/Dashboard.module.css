@@ -122,7 +122,7 @@
 
 .history-transaction {
   width: 46%;
-  min-height: 30vw;
+  min-height: 25vw;
   background-color: #ffffff;
   box-shadow: 0px 4px 20px 0px #0000000D;
   border-radius: 25px;
@@ -182,10 +182,16 @@
   color: rgba(122, 120, 134, 1);
 }
 
-.amount {
+.amount-receive {
   font-size: 16px;
   font-weight: 700;
   color: rgba(30, 193, 95, 1);
+}
+
+.amount-send {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 91, 55, 1);
 }
 
 .resume {
