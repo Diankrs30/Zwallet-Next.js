@@ -4,7 +4,7 @@ import userAction from "../../redux/actions/user";
 import historyAction from "../../redux/actions/history";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Modal from "components/ModalTopUp";
+import Modal from "src/Components/ModalTopUp";
 import getDashboardAction from "src/redux/actions/dashboard";
 import { currency } from "src/helper/currency";
 import {
@@ -19,10 +19,10 @@ import { Bar } from "react-chartjs-2";
 
 import Image from "next/image";
 import styles from "styles/Dashboard.module.css";
-import Layout from "components/Layout";
-import Header from "components/Header";
-import Footer from "components/Footer";
-import Sidebar from "components/Sidebar";
+import Layout from "src/Components/Layout";
+import Header from "src/Components/Header";
+import Footer from "src/Components/Footer";
+import Sidebar from "src/Components/Sidebar";
 
 import image from "assets/default-img.png";
 

@@ -84,15 +84,15 @@ You may also see any lint errors in the console.
 ## Screenshots
 
 <div align="center">
-<img width="500" src="Home-Fazzpay.png" alt="Landing page">
+<img width="500" src="src/assets/Home-Fazzpay.png" alt="Landing page">
 
-<img width="500" src="login-Fazzpay.png" alt="Login page">
+<img width="500" src="src/assets/login-Fazzpay.png" alt="Login page">
 
-<img width="500" src="signup-Fazzpay.png" alt="Signup">
+<img width="500" src="src/assets/signup-Fazzpay.png" alt="Signup">
 
-<img width="500" src="dashboard.png" alt="Dashboard">
+<img width="500" src="src/assets/dashboard.png" alt="Dashboard">
 
-<img width="500" src="transfer-fazzpay.png" alt="Transfer">
+<img width="500" src="src/assets/transfer-fazzpay.png" alt="Transfer">
 
-<img width="500" src="topup-fazzpay.png" alt="Top up">
+<img width="500" src="src/assets/topup-fazzpay.png" alt="Top up">
 </div>
