@@ -6,10 +6,10 @@ import Link from "next/link";
 
 import Image from "next/image";
 import styles from "styles/History.module.css";
-import Layout from "src/Components/Layout";
-import Header from "src/Components/Header";
-import Footer from "src/Components/Footer";
-import Sidebar from "src/Components/Sidebar";
+import Layout from "components/Layout";
+import Header from "components/Header";
+import Footer from "components/Footer";
+import Sidebar from "components/Sidebar";
 
 import image from "assets/default-img.png";
 

@@ -7,8 +7,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 import Image from "next/image";
-import Layout from "src/Components/Layout";
-import SidebarAuth from "src/Components/SidebarAuth";
+import Layout from "components/Layout";
+import SidebarAuth from "components/SidebarAuth";
 import styles from "styles/Login.module.css";
 
 import mail from "assets/mail.png";

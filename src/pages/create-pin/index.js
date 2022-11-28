@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import userAction from "../../redux/actions/user";
 
 import styles from "styles/CreatePin.module.css";
-import Layout from "src/Components/Layout";
-import SidebarAuth from "src/Components/SidebarAuth";
+import Layout from "components/Layout";
+import SidebarAuth from "components/SidebarAuth";
 import { toast } from "react-toastify";
 
 function CreatePin() {
