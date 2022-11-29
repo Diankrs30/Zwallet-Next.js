@@ -79,20 +79,20 @@ You may also see any lint errors in the console.
 
 ## Deployment
 
-[Vercel deploy link]
+[Vercel deploy link] (https://zwallet-next-js-qoqp.vercel.app/)
 
 ## Screenshots
 
 <div align="center">
-<img width="500" src="src/assets/Home-Fazzpay.png" alt="Landing page">
+<img width="500" src="src/Assets/Home-Fazzpay.png" alt="Landing page">
 
-<img width="500" src="src/assets/login-Fazzpay.png" alt="Login page">
+<img width="500" src="src/Assets/login-Fazzpay.png" alt="Login page">
 
-<img width="500" src="src/assets/signup-Fazzpay.png" alt="Signup">
+<img width="500" src="src/Assets/signup-Fazzpay.png" alt="Signup">
 
-<img width="500" src="src/assets/dashboard.png" alt="Dashboard">
+<img width="500" src="src/Assets/dashboard.png" alt="Dashboard">
 
-<img width="500" src="src/assets/transfer-fazzpay.png" alt="Transfer">
+<img width="500" src="src/Assets/transfer-fazzpay.png" alt="Transfer">
 
-<img width="500" src="src/assets/topup-fazzpay.png" alt="Top up">
+<img width="500" src="src/Assets/topup-fazzpay.png" alt="Top up">
 </div>
