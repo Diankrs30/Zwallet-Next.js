@@ -74,3 +74,21 @@
   font-weight: 700;
   color: #88888F;
 }
+
+@media (min-width: 425px) {
+  .change-password {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .change-password {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .change-password {
+    width: 55%;
+  }
+}

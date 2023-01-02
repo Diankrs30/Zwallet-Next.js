@@ -18,7 +18,7 @@ const getDasboardReducer = (prevState = initialState, { type, payload }) => {
         prevState,
         isLoading: false,
         isError: true,
-        error: payload.error.response.data.msg,
+        error: payload.error.response,
       };
     case getDashboard.concat(fulfilled):
       return {

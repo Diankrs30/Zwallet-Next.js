@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useState } from "react";
 // import userAction from "../redux/actions/user";
@@ -14,6 +14,7 @@ function Header() {
   const profile = useSelector((state) => state.user.profile);
   // const auth = useSelector((state) => state.auth.userData);
   const link = process.env.NEXT_PUBLIC_CLOUDINARY_IMAGE;
+  const [imgPrev, setImgPrev] = useState(null);
 
   return (
     <div>
@@ -30,6 +31,8 @@ function Header() {
               quality={52}
               style={{ cursor: "pointer", borderRadius: "10px" }}
               alt="foto profile"
+              // layout="fill"
+              // objectFit="cover"
             />
           </div>
           <div className={styles.profile}>

@@ -29,7 +29,7 @@ const authReducer = (prevState = initialState, { type, payload }) => {
         ...prevState,
         isLoading: true,
         isError: false,
-        isTrue: false,
+        isFulfilled: false,
       };
     case authRegister + rejected:
       return {
@@ -49,7 +49,7 @@ const authReducer = (prevState = initialState, { type, payload }) => {
         ...prevState,
         isLoading: true,
         isError: false,
-        isTrue: false,
+        isFulfilled: false,
       };
     case authLogin + rejected:
       return {
@@ -84,7 +84,6 @@ const authReducer = (prevState = initialState, { type, payload }) => {
         error: payload.error,
       };
     case authLogout + fulfilled:
-      console.log("cekcekecekcek");
       return initialState;
 
     case forgotPwd + pending:
@@ -92,7 +91,7 @@ const authReducer = (prevState = initialState, { type, payload }) => {
         ...prevState,
         isLoading: true,
         isError: false,
-        isTrue: false,
+        isFulfilled: false,
       };
     case forgotPwd + rejected:
       return {
@@ -120,7 +119,6 @@ const authReducer = (prevState = initialState, { type, payload }) => {
         isFulfilled: false,
       };
     case resetPwd + rejected:
-      console.log("cek error", payload.error);
       return {
         ...prevState,
         isError: true,

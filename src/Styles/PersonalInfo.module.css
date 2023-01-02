@@ -68,15 +68,19 @@
   margin-bottom: 10px;
 }
 
-.text2,
-.text3 {
+.text2 {
   font-size: 22px;
   font-weight: 700;
   color: rgba(81, 79, 91, 1);
   margin: 0px;
+  background-color: transparent;
+  border: none;
 }
 
 .text3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0px;
   color: #7a7886;
 }
 
@@ -90,5 +94,120 @@
   align-items: center;
   font-size: 16px;
   font-weight: 600;
-  color: #6379F4;
+  color: #6379f4;
+}
+
+.edit-btn {
+  display: flex;
+  justify-content: flex-end;
+  color: #6379f4;
+  font-weight: 600;
+  user-select: none;
+}
+
+.edit-btn:hover {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.edit-btn p {
+  margin: 0;
+}
+
+.btn_save_profile {
+  width: 120px;
+  height: 40px;
+  background-color: #6379F4;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.btn_save_profile:active {
+  background-color: #93a1ed;
+  color: #ffffff;
+}
+
+.btn_cancel_profile {
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: #E5E8ED;
+  font-size: 16px;
+  font-weight: 700;
+  color: #4d4b57;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.wrapper_button {
+  display: flex;
+  width: 35%;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.manage {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+@media (min-width: 425px) {
+  .main {
+    padding: 20px;
+    flex-direction: column;
+  }
+  .content {
+    width: 100%;
+  }
+  .wrapper-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .information {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 40px;
+  }
+  .wrapper-title {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {
+  .aside {
+    display: block;
+  }
+  .main {
+    padding: 40px 150px 35px;
+    flex-direction: row;
+  }
+  .information {
+    width: 44%;
+  }
+  .content {
+    width: 76%;
+  }
+  .wrapper-title {
+    justify-content: space-between;
+    align-items: center;
+  }
 }

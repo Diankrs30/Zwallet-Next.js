@@ -5,17 +5,16 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { checkPin } from "../utils/user";
+import { checkPin } from "src/utils/user";
 import transferAction from "src/redux/actions/transfer";
 const InputPin = dynamic(import("react-code-input"));
 
 const Modal = ({ setOpen, open, amount, receiverId, notes }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [pin, setPin] = useState(null);
   const token = useSelector((state) => state.auth.userData.token);
-  const router = useRouter();
   const pinHandler = (e) => setPin(e);
-  // console.log(pin);
   const transferHandler = (e) => {
     e.preventDefault();
     const body = {
@@ -28,14 +27,13 @@ const Modal = ({ setOpen, open, amount, receiverId, notes }) => {
         if (res.data.status == 200)
           dispatch(transferAction.transferThunk(token, body));
         setOpen(!open);
-        router.push("/transfer/status");
+        router.push("/transaction/transfer/status");
       })
       .catch((err) => {
         console.log(err);
         toast.error(`${err.response.data.msg}`);
       });
   };
-  console.log(pin);
 
   return (
     <>
@@ -49,15 +47,15 @@ const Modal = ({ setOpen, open, amount, receiverId, notes }) => {
             </div>
             <InputPin fields={6} type="password" onChange={pinHandler} />
             <div className={styles["modal-footer"]}>
+              <button onClick={() => setOpen(!open)} className={styles.cancel}>
+                Cancel
+              </button>
               <button
                 className={styles.confirm}
                 onClick={transferHandler}
                 type="submit"
               >
                 Confirm
-              </button>
-              <button onClick={() => setOpen(!open)} className={styles.cancel}>
-                Cancel
               </button>
             </div>
           </form>

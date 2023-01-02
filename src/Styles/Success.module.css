@@ -125,7 +125,6 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 55px;
-  display: none;
 }
 
 .wrapper-button-failed {
@@ -157,7 +156,6 @@
   text-align: center;
   margin-top: 60px;
   margin-bottom: 40px;
-  display: none;
 }
 
 .status {
@@ -177,4 +175,44 @@
   font-size: 16px;
   font-weight: 400;
   color: #7a7886;
+}
+
+@media (min-width: 425px) {
+  .main {
+    padding: 20px;
+    flex-direction: column;
+  }
+  .content {
+    width: 100%;
+  }
+  .wrapper-title {
+    flex-direction: column;
+    align-items:flex-start;
+  }
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 40px;
+  }
+  .wrapper-title {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {
+  .aside {
+    display: block;
+  }
+  .main {
+    padding: 40px 150px 35px;
+    flex-direction: row;
+  }
+  .content {
+    width: 76%;
+  }
+  .wrapper-title {
+    justify-content: space-between;
+    align-items: center;
+  }
 }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
-import { getUserById } from "../../utils/user";
+import { getUserById } from "src/utils/user";
 import { currency } from "src/helper/currency";
 import transferAction from "src/redux/actions/transfer";
 
@@ -13,6 +13,7 @@ import Layout from "src/Components/Layout";
 import Header from "src/Components/Header";
 import Footer from "src/Components/Footer";
 import Sidebar from "src/Components/Sidebar";
+import Loading from "src/Components/Loading";
 
 import image from "assets/default-img.png";
 import Edit from "assets/edit-2.png";
@@ -24,18 +25,20 @@ function Amount() {
   const receiverId = router.query.receiver;
   const token = useSelector((state) => state.auth.userData.token);
   const userBalance = useSelector((state) => state.user.profile.balance);
+  const [loading, setLoading] = useState(true);
   const [amount, setAmount] = useState(null);
   const [notes, setNotes] = useState("");
   const [receiverData, setReceiverData] = useState({});
   const link = process.env.NEXT_PUBLIC_CLOUDINARY_IMAGE;
 
   useEffect(() => {
-    getUserById(token, receiverId)
+    getUserById(receiverId, token)
       .then((res) => {
+        setLoading(false);
         setReceiverData({ ...res.data.data });
       })
       .catch((err) => console.log(err));
-  }, [token, receiverId]);
+  }, [receiverId, token]);
 
   const amountHandler = (e) => setAmount(e.target.value);
   const notesHandler = (e) => setNotes(e.target.value);
@@ -45,9 +48,9 @@ function Amount() {
       return toast.error("Input the amount of money you want to transfer");
     if (parseInt(amount) > userBalance)
       return toast.error("insufficient balance");
-    if (amount < 1000)
+    if (amount < 10000)
       return toast.error(
-        "insufficient amount, only more than Rp. 1000 are allowed"
+        "insufficient amount, only more than Rp. 10000 are allowed"
       );
     const date = new Date();
     const body = {
@@ -57,8 +60,8 @@ function Amount() {
       notes,
       receiverData,
     };
-    dispatch(transferAction.transferData(body));
-    router.push("/transfer/confirmation");
+    dispatch(transferAction.dataTransfer(body));
+    router.push("/transaction/transfer/confirmation");
   };
 
   return (
@@ -79,21 +82,31 @@ function Amount() {
               <div className={styles["wrapper-user"]}>
                 <div className={`${styles["card-user"]} ${styles.flex}`}>
                   <div className={`${styles["info-user"]} ${styles.flex}`}>
-                    <div className={styles["img-user"]}>
-                      <Image
-                        src={`${link}/${receiverData.image}` || image}
-                        alt="img"
-                        width={56}
-                        height={56}
-                        style={{ borderRadius: "10px" }}
-                      ></Image>
-                    </div>
-                    <div className={styles["data-user"]}>
-                      <p
-                        className={styles.name}
-                      >{`${receiverData.firstName} ${receiverData.lastName}`}</p>
-                      <p className={styles.phone}>{receiverData.noTelp}</p>
-                    </div>
+                    {loading ? (
+                      <Loading />
+                    ) : (
+                      <div className={`${styles["info-user"]} ${styles.flex}`}>
+                        <div className={styles["img-user"]}>
+                          <Image
+                            src={
+                              receiverData.image !== null
+                                ? `${link}/${receiverData.image}`
+                                : image
+                            }
+                            alt="img"
+                            width={56}
+                            height={56}
+                            priority
+                          ></Image>
+                        </div>
+                        <div className={styles["data-user"]}>
+                          <p
+                            className={styles.name}
+                          >{`${receiverData.firstName} ${receiverData.lastName}`}</p>
+                          <p className={styles.phone}>{receiverData.noTelp}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -107,7 +120,7 @@ function Amount() {
                 <input
                   className={styles.nominal}
                   type="number"
-                  placeholder="RP.0.00"
+                  placeholder="RP. 0.00"
                   onChange={amountHandler}
                 ></input>
                 <div className={styles.saldo}>{`Rp . ${currency(

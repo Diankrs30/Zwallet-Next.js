@@ -38,9 +38,9 @@ const handleSignup = () => {
     <div className={styles.container}>
       <Layout></Layout>
       <header className={`${styles.header} ${styles.flex}`}>
-        <sidebar className={styles.sidebar}>
+        <div className={styles.sidebar}>
           <p className={styles.title}>FazzPay</p>
-        </sidebar>
+        </div>
         <div className={`${styles.flex} ${styles.navbar}`}>
           <Button text="Login" variant="login" onClick={() => handleLogin()}/>
           <Button text="Sign Up" variant="signup" onClick={() => handleSignup()}/>

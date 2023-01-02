@@ -1,3 +1,4 @@
+import logger from "redux-logger";
 import ACTION_STRING from "../actions/actionStrings";
 
 initialState = {
@@ -20,10 +21,9 @@ const topUpReducer = (prevState = initialState, { type, payload }) => {
       return {
         isLoading: false,
         isError: true,
-        error: payload.error,
+        error: payload.error.response.data.msg,
       };
     case transactionTopUp + fulfilled:
-      console.log("cek payload reducer", payload.data);
       return {
         isLoading: false,
         isError: false,

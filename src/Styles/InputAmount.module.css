@@ -63,6 +63,8 @@
   height: 56px;
   border-radius: 10px;
   margin-right: 15px;
+  position: relative;
+  overflow: hidden;
 }
 
 .data-user {
@@ -142,4 +144,44 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
+}
+
+@media (min-width: 425px) {
+  .main {
+    padding: 20px;
+    flex-direction: column;
+  }
+  .content {
+    width: 100%;
+  }
+  .wrapper-title {
+    flex-direction: column;
+    align-items:flex-start;
+  }
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 40px;
+  }
+  .wrapper-title {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {
+  .aside {
+    display: block;
+  }
+  .main {
+    padding: 40px 150px 35px;
+    flex-direction: row;
+  }
+  .content {
+    width: 76%;
+  }
+  .wrapper-title {
+    justify-content: space-between;
+    align-items: center;
+  }
 }

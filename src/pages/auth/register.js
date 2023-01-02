@@ -10,12 +10,13 @@ import Image from "next/image";
 import styles from "styles/Register.module.css";
 import Layout from "src/Components/Layout";
 import SidebarAuth from "src/Components/SidebarAuth";
+import Loading from "components/LoadingBtn";
 
-import mail from "assets/mail.png";
-import lock from "assets/lock.png";
-import eyeSlash from "assets/eye-crossed.png";
-import eye from "assets/eye.png";
-import person from "assets/person.png";
+// import mail from "assets/mail.png";
+// import lock from "assets/lock.png";
+// import eyeSlash from "assets/eye-crossed.png";
+// import eye from "assets/eye.png";
+// import person from "assets/person.png";
 
 function Register() {
   const dispatch = useDispatch();
@@ -25,7 +26,6 @@ function Register() {
   const [isPwdShown, setIsPwdShown] = useState(false);
   const [emptyForm, setEmptyForm] = useState(true);
   const isLoading = useSelector((state) => state.auth.isLoading);
-  // console.log(body);
 
   const checkEmptyForm = (body) => {
     if (
@@ -47,8 +47,6 @@ function Register() {
     setBody({ ...body, [e.target.name]: e.target.value });
   };
 
-  // console.log(body);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -59,9 +57,8 @@ function Register() {
       router.push("/auth/login");
     };
 
-    const registerDenied = () => {
-      // console.log(auth.error);
-      toast.error(`${auth.error}`);
+    const registerDenied = (error) => {
+      toast.error(`${error.response.data.msg}`);
     };
 
     dispatch(authAction.registerThunk(body, registerSuccess, registerDenied));
@@ -90,13 +87,14 @@ function Register() {
           </p>
           <form className={styles.login} onSubmit={handleSubmit}>
             <div className={`${styles.formLogin} ${styles.flex}`}>
-              <Image
+              {/* <Image
                 className={styles.icon}
                 src={person}
                 alt="mail"
                 width={24}
                 heigth={24}
-              />
+              /> */}
+              <i className="bi bi-person"></i>
               <input
                 className={styles.inputLogin}
                 type="text"
@@ -107,13 +105,14 @@ function Register() {
               ></input>
             </div>
             <div className={`${styles.formLogin} ${styles.flex}`}>
-              <Image
+              {/* <Image
                 className={styles.icon}
                 src={person}
                 alt="lock"
                 width={24}
                 heigth={24}
-              />
+              /> */}
+              <i className="bi bi-person"></i>
               <input
                 className={styles.inputLogin}
                 type="text"
@@ -124,13 +123,14 @@ function Register() {
               ></input>
             </div>
             <div className={`${styles.formLogin} ${styles.flex}`}>
-              <Image
+              {/* <Image
                 className={styles.icon}
                 alt="mail"
                 src={mail}
                 width={24}
                 heigth={24}
-              />
+              /> */}
+              <i className="bi bi-envelope"></i>
               <input
                 className={styles.inputLogin}
                 type="text"
@@ -141,13 +141,14 @@ function Register() {
               ></input>
             </div>
             <div className={`${styles.formLogin} ${styles.flex}`}>
-              <Image
+              {/* <Image
                 className={styles.icon}
                 src={lock}
                 alt="lock"
                 width={24}
                 heigth={24}
-              />
+              /> */}
+              <i className="bi bi-lock"></i>
               <input
                 className={styles.inputLogin}
                 type={isPwdShown ? "text" : "password"}
@@ -156,22 +157,35 @@ function Register() {
                 placeholder="Enter your password"
                 onChange={changeHandler}
               ></input>
-              <Image
+              {/* <Image
                 className={styles.icon}
                 src={isPwdShown ? eye : eyeSlash}
                 alt="password"
                 width={24}
                 heigth={24}
                 onClick={() => setIsPwdShown(!isPwdShown)}
-              />
+              /> */}
+              <i
+                className={`bi ${isPwdShown ? `bi-eye-slash` : `bi-eye`} 
+            ${styles.icon}`}
+                onClick={() => setIsPwdShown(!isPwdShown)}
+              ></i>
             </div>
-            <button
-              className={`${styles.btn}`}
-              type="submit"
-              disabled={emptyForm}
-            >
-              Sign Up
-            </button>
+            {isLoading ? (
+              <div
+                className={`${styles.btn}`}
+              >
+                <Loading />
+              </div>
+            ) : (
+              <button
+                className={`${styles.btn}`}
+                type="submit"
+                disabled={emptyForm}
+              >
+                Sign Up
+              </button>
+            )}
           </form>
           <p className={styles.confirmation}>
             Don&#39;t have an account? Let&#39;s{" "}

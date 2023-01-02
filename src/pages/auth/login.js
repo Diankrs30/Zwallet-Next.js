@@ -6,25 +6,22 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-import Image from "next/image";
 import Layout from "src/Components/Layout";
 import SidebarAuth from "src/Components/SidebarAuth";
 import styles from "styles/Login.module.css";
-
-import mail from "assets/mail.png";
-import lock from "assets/lock.png";
-import eyeSlash from "assets/eye-crossed.png";
-import eye from "assets/eye.png";
+import Loading from "components/LoadingBtn";
 
 function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth.userData);
   const [body, setBody] = useState({});
   const [isPwdShown, setIsPwdShown] = useState(false);
   const [emptyForm, setEmptyForm] = useState(true);
   const isLoading = useSelector((state) => state.auth.isLoading);
 
+  if (auth.token !== null ) router.push(`/dashboard/${auth.id}`);
+  
   const changeHandler = (e) => {
     setBody({ ...body, [e.target.name]: e.target.value });
   };
@@ -34,26 +31,23 @@ function Login() {
     body.email && body.password && setEmptyForm(false);
   };
 
-  console.log(body);
-
   const loginSuccess = (data) => {
-    console.log(">>>>>>>>>>>>> callbackSuccess", data.data.pin);
+    // console.log(data.data.id);
     if (data.data.pin === null) {
       toast.success("Login succes! Please create your pin fisrt")
       router.push("/create-pin");
     } else {
       toast.success("Login succes!")
-    router.push("/dashboard");
+    router.push(`/dashboard/${data.data.id}`);
     }
   };
 
-  const loginDenied = () => {
-    toast.error(`Login failed! ${auth.error}`);
+  const loginDenied = (error) => {
+    toast.error(`Login failed! ${error.response.data.msg}`);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("mmmmmmmmm");
 
     dispatch(authAction.loginThunk(body, loginSuccess, loginDenied));
   };
@@ -82,7 +76,7 @@ function Login() {
           </p>
           <form className={styles.login} onSubmit={handleSubmit}>
             <div className={`${styles.formLogin} ${styles.flex}`}>
-              <Image src={mail} alt="mail" />
+               <i className="bi bi-envelope"></i>
               <input
                 className={styles.inputLogin}
                 type="text"
@@ -93,7 +87,7 @@ function Login() {
               ></input>
             </div>
             <div className={`${styles.formLogin} ${styles.flex}`}>
-              <Image src={lock} alt="lock" />
+              <i className="bi bi-lock"></i>
               <input
                 className={styles.inputLogin}
                 type={isPwdShown ? "text" : "password"}
@@ -102,25 +96,28 @@ function Login() {
                 placeholder="Enter your password"
                 onChange={changeHandler}
               ></input>
-              <Image
-                className={styles.icon}
-                src={isPwdShown ? eye : eyeSlash}
-                alt="password"
-                width={24}
-                heigth={24}
-                onClick={() => setIsPwdShown(!isPwdShown)}
-              />
+              <i className={`bi ${isPwdShown ? `bi-eye-slash` : `bi-eye`} 
+            ${styles.icon}`} onClick={() => setIsPwdShown(!isPwdShown)}></i>
             </div>
             <div className={styles.forgotPwd}>
               <Link href={"/forgot-password"}>Forgot password?</Link>
             </div>
-            <button
+            {isLoading ?             
+            (<div
+              className={`${styles.btn}`}
+              // type="submit"
+              // disabled={emptyForm}
+            >
+              <Loading/>
+            </div>):             
+            (<button
               className={`${styles.btn}`}
               type="submit"
               disabled={emptyForm}
             >
-              Login
-            </button>
+              <p>Login</p>
+            </button>)}
+
           </form>
           <p className={styles.confirmation}>
             Don&#39;t have an account? Let&#39;s{" "}

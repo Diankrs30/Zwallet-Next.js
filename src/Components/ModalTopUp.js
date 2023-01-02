@@ -4,20 +4,23 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import topUpAction from "src/redux/actions/topUp";
 import styles from "styles/ModalTopUp.module.css";
+import Loading from "components/LoadingBtn";
 
 function ModalTopUp({ setOpen, open, token }) {
   const dispatch = useDispatch();
   const [body, setBody] = useState({});
+  const [loading, setLoading] = useState(false);
   const topUp = useSelector((state) => state.topUp);
   const linkRef = useRef(null);
 
-  const changeHandler = (e) =>
+  const changeHandler = (e) => {
     setBody({ ...body, [e.target.name]: e.target.value });
+  };
 
   const topUpSuccess = (directedLink) => {
-    console.log(">>>>>>>", directedLink);
+    // console.log(">>>>>>>", directedLink);
     setOpen(!open);
-    // toast.success("Redirecting you to payment page");
+    toast.success("Redirecting you to payment page");
   };
   const topUpFailed = (errorMsg) => {
     setOpen(!open);
@@ -26,6 +29,7 @@ function ModalTopUp({ setOpen, open, token }) {
   const topupHandler = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const result = await dispatch(
         topUpAction.topUpThunk(body, token, topUpSuccess, topUpFailed)
       );
@@ -53,9 +57,13 @@ function ModalTopUp({ setOpen, open, token }) {
               <button onClick={() => setOpen(!open)} className={styles.cancel}>
                 Cancel
               </button>
-              <button className={styles.confirm} type="submit">
-                Confirm
-              </button>
+              {loading ? (
+                <Loading />
+              ) : (
+                <button className={styles.confirm} type="submit">
+                  Confirm
+                </button>
+              )}
             </div>
           </form>
         </div>

@@ -33,7 +33,7 @@ function ForgotPassword() {
     setBody({ ...body, email : e.target.value });
   };
 
-  console.log(body);
+  // console.log(body);
 
   const handleSubmit = (e) => {
     e.preventDefault();

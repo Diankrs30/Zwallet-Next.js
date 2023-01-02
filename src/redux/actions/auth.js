@@ -80,7 +80,7 @@ const registerThunk = (body, cbSuccess, cbDenied) => {
       if (typeof cbSuccess === "function") cbSuccess();
     } catch (error) {
       dispatch(registerRejected(error));
-      if (typeof cbDenied === "function") cbDenied();
+      if (typeof cbDenied === "function") cbDenied(error);
     }
   };
 };
@@ -94,7 +94,7 @@ const loginThunk = (body, cbSuccess, cbDenied) => {
       if (typeof cbSuccess === "function") cbSuccess(result.data);
     } catch (error) {
       dispatch(loginRejected(error));
-      if (typeof cbDenied === "function") cbDenied();
+      if (typeof cbDenied === "function") cbDenied(error);
     }
   };
 };
@@ -121,7 +121,7 @@ const forgotThunk = (body, cbSuccess, cbDenied) => {
       if (typeof cbSuccess === "function") cbSuccess(result.data);
     } catch (error) {
       dispatch(forgotRejected(error));
-      if (typeof cbDenied === "function") cbDenied();
+      if (typeof cbDenied === "function") cbDenied(error);
     }
   };
 };

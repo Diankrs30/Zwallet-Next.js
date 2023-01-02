@@ -8,17 +8,46 @@ import Header from "src/Components/Header";
 import Footer from "src/Components/Footer";
 import Sidebar from "src/Components/Sidebar";
 import Button from "src/Components/Button";
-import { currency } from "../../helper/currency";
+import Loading from "components/LoadingBtn";
+import { currency } from "src/helper/currency";
 import Modal from "src/Components/ModulPin";
 
 import image from "assets/default-img.png";
 
 function Confirmation() {
   const transferData = useSelector((state) => state.transfer.transferData);
+  console.log(transferData);
   const { receiverData } = transferData;
   const userBalance = useSelector((state) => state.user.profile.balance);
   const link = process.env.NEXT_PUBLIC_CLOUDINARY_IMAGE;
   const [open, setOpen] = useState(false);
+
+  const transactionDate = () => {
+    const arrbulan = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ];
+    const date = new Date();
+    const detik = date.getSeconds();
+    const menit = date.getMinutes();
+    const jam = date.getHours();
+    const hari = date.getDay();
+    const tanggal = date.getDate();
+    const bulan = date.getMonth();
+    const tahun = date.getFullYear();
+    return `${arrbulan[bulan]} ${tanggal} , ${tahun} - ${jam}:${menit}:${detik} `;
+  };
+
   return (
     <div className={styles.container}>
       <Layout title="Confirmation"></Layout>
@@ -33,13 +62,18 @@ function Confirmation() {
               <div className={styles.title}>
                 <p>Transfer To</p>
               </div>
-
               <div className={styles["wrapper-user"]}>
                 <div className={`${styles["card-user"]} ${styles.flex}`}>
                   <div className={`${styles["info-user"]} ${styles.flex}`}>
                     <div className={styles["img-user"]}>
                       <Image
-                        src={`${link}/${receiverData?.image}` || image}
+                        src={
+                          receiverData?.image === null
+                            ? image
+                            : `${link}/${receiverData?.image}`
+
+                          // `${link}/${receiverData?.image}` || image
+                        }
                         alt="img"
                         width={70}
                         height={70}
@@ -47,7 +81,9 @@ function Confirmation() {
                       ></Image>
                     </div>
                     <div className={styles["data-user"]}>
-                      <p className={styles.name}>{`${receiverData?.firstName} ${receiverData?.lastName}`}</p>
+                      <p
+                        className={styles.name}
+                      >{`${receiverData?.firstName} ${receiverData?.lastName}`}</p>
                       <p className={styles.phone}>{receiverData?.noTelp}</p>
                     </div>
                   </div>
@@ -60,22 +96,22 @@ function Confirmation() {
                 <div className={styles["card-confirmation"]}>
                   <p className={styles.text1}>Amount</p>
                   <p className={styles.text2}>{`Rp. ${currency(
-                  transferData.amount
-                )}`}</p>
+                    transferData.amount
+                  )}`}</p>
                 </div>
               </div>
               <div className={styles["wrapper-card"]}>
                 <div className={styles["card-confirmation"]}>
                   <p className={styles.text1}>Balance Left</p>
                   <p className={styles.text2}>{`Rp. ${currency(
-                  userBalance - transferData.amount
-                )}`}</p>
+                    userBalance - transferData.amount
+                  )}`}</p>
                 </div>
               </div>
               <div className={styles["wrapper-card"]}>
                 <div className={styles["card-confirmation"]}>
                   <p className={styles.text1}>Date & Time</p>
-                  <p className={styles.text2}>{Date(transferData.date)}</p>
+                  <p className={styles.text2}>{transactionDate()}</p>
                 </div>
               </div>
               <div className={styles["wrapper-card"]}>
@@ -85,19 +121,23 @@ function Confirmation() {
                 </div>
               </div>
               <div className={styles["wrapper-button"]}>
-                <Button text="Continue" variant="continue" onClick={() => setOpen(true)} />
+                <Button
+                  text="Continue"
+                  variant="continue"
+                  onClick={() => setOpen(true)}
+                />
               </div>
             </div>
           </section>
         </section>
         <Footer />
         <Modal
-        open={open}
-        setOpen={setOpen}
-        amount={transferData.amount}
-        notes={transferData.notes}
-        receiverId={receiverData?.id}
-      />
+          open={open}
+          setOpen={setOpen}
+          amount={transferData.amount}
+          notes={transferData.notes}
+          receiverId={receiverData?.id}
+        />
       </main>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import userAction from "../../redux/actions/user";
-import historyAction from "../../redux/actions/history";
+import userAction from "src/redux/actions/user";
+import historyAction from "src/redux/actions/history";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Modal from "src/Components/ModalTopUp";
@@ -23,6 +23,7 @@ import Layout from "src/Components/Layout";
 import Header from "src/Components/Header";
 import Footer from "src/Components/Footer";
 import Sidebar from "src/Components/Sidebar";
+import Loading from "src/Components/Loading";
 
 import image from "assets/default-img.png";
 
@@ -33,11 +34,17 @@ function Dashboard() {
   const profile = useSelector((state) => state.user.profile);
   const auth = useSelector((state) => state.auth.userData);
   const dataHistory = useSelector((state) => state.history.history);
-  // const allState = useSelector((state) => state);
-  // const { dataDashboard } = allState.getDashboard;
+  const isLoading = useSelector((state) => state.history.isLoading);
   const link = process.env.NEXT_PUBLIC_CLOUDINARY_IMAGE;
   const [showModal, setShowModal] = useState(false);
   const statistic = useSelector((state) => state.getDashboard.data);
+  const [param, setParam] = useState({
+    page: 1,
+    per_page: 6,
+    filter: "MONTH",
+  });
+
+  if (auth.token === null ) router.push("/auth/login");
 
   const modalHandler = () => setShowModal(!showModal);
 
@@ -49,7 +56,7 @@ function Dashboard() {
     const param = {
       page: 1,
       per_page: 4,
-      filter: "MONTH",
+      filter: "WEEK",
     };
     dispatch(historyAction.getHistoryThunk(param, auth.token));
   };
@@ -172,7 +179,7 @@ function Dashboard() {
               <div className={`${styles.button} ${styles.flex}`}>
                 <button
                   className={styles.btn}
-                  onClick={() => router.push("/transfer")}
+                  onClick={() => router.push("/transaction/transfer")}
                 >
                   <i className={`fa-solid fa-arrow-up ${styles.icon}`}></i>
                   <span className={styles.text4}>Transfer</span>
@@ -215,13 +222,21 @@ function Dashboard() {
                 <div className={styles.history}>
                   <div className={`${styles.title2} ${styles.flex}`}>
                     <p className={styles.text5}>Transaction History</p>
-                    <Link href="/history" passHref>
+                    <Link
+                      href={`/transaction/history?page=${param.page}&limit=${param.per_page}&filter=${param.filter}`}
+                      passHref
+                    >
                       <p className={styles.text6}>See all</p>
                     </Link>
                   </div>
                 </div>
                 <div className={styles["wrapper-user"]}>
-                  {dataHistory.length > 0 &&
+                  {isLoading ? (
+                    <Loading />
+                  ) : dataHistory.length < 1 ? (
+                    <p className={styles.noHistory}>No history yet</p>
+                  ) : (
+                    dataHistory.length > 0 &&
                     dataHistory.map((item, idx) => (
                       <div
                         className={`${styles["card-user"]} ${styles.flex}`}
@@ -237,31 +252,36 @@ function Dashboard() {
                                   ? `${link}/${item.image}`
                                   : image
                               }
+                              alt="foto-profile"
                               width={56}
                               height={56}
-                              quality={56}
-                              alt="foto-profile"
-                              styles={{ borderRadius: "10px" }}
+                              // layout="fill"
+                              // objectFit="cover"
                             />
                           </div>
                           <div className={styles["data-user"]}>
-                            <p className={styles.name}>{`${item.firstName} ${item.lastName}`}</p>
-                            <p className={styles.status}>{item.status}</p>
+                            <p
+                              className={styles.name}
+                            >{`${item.firstName} ${item.lastName}`}</p>
+                            <p className={styles.status}>
+                              {`${item.type} ${item.status}`}
+                            </p>
                           </div>
                         </div>
                         <div
                           className={
                             item.type === "send"
-                              ? styles["amount-send"]
-                              : styles["amount-receive"]
+                              ? styles["amount-red"]
+                              : styles["amount-green"]
                           }
                         >
-                          {item.type === "topup"
+                          {item.type == "topup" || item.type == "accept"
                             ? "+ " + rupiah(item.amount)
                             : "- " + rupiah(item.amount)}
                         </div>
                       </div>
-                    ))}
+                    ))
+                  )}
                 </div>
               </div>
             </section>

@@ -34,8 +34,7 @@ const getHistoryThunk = (param, token) => {
     try {
       dispatch(getHistoryPending());
       const result = await getHistory(param, token);
-    //   console.log("cek",result);
-      dispatch(getHistoryFulfilled(result.data.data));
+      dispatch(getHistoryFulfilled(result.data));
       if (typeof cbSuccess === "function") cbSuccess();
     } catch (error) {
       dispatch(getHistoryRejected(error));

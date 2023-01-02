@@ -11,6 +11,7 @@
 .main {
   padding: 40px 150px 35px;
   gap: 20px;
+  min-height: 79vh;
 }
 
 /* aside */
@@ -29,6 +30,7 @@
   border-radius: 25px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
   padding: 30px 30px 230px 30px;
+  height: 100%;
 }
 
 .wrapper-title {
@@ -83,6 +85,10 @@
   font-weight: 400;
 }
 
+.blue {
+  color: #6379F4!important;
+}
+
 .input::-webkit-input-placeholder {
   color: rgba(169, 169, 169, 0.8);
 }
@@ -95,4 +101,111 @@
   font-size: 18px;
   color: rgba(169, 169, 169, 0.8);
   margin-right: 15px;
+}
+
+.btn {
+  margin-top: 70px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #6379F4;
+  border-radius: 15px;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+  width: 55%;
+  background-color: #6379F4;
+  font-size: 18px;
+  font-weight: 700;
+  color:#ffffff;
+  height: 57px;
+  border: none;
+}
+
+.btn:disabled {
+  background-color: #DADADA;
+  color:#88888F;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+@media (min-width: 425px) {
+  .main {
+    padding: 20px;
+    flex-direction: column;
+  }
+  .content {
+    width: 100%;
+  }
+  .wrapper-title {
+    flex-direction: column;
+    align-items:flex-start;
+  }
+  .wrapper-input {
+    width: 100%;
+  }
+  .input {
+    width: 70%;
+  }
+  .btn {
+    width: 100%;
+  }
+  .information {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 40px;
+  }
+  .wrapper-title {
+    flex-direction: row;
+  }
+  .wrapper-input {
+    width: 70%;
+  }
+  .input {
+    width: 70%;
+  }
+  .btn {
+    width: 70%;
+  }
+  .information {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .aside {
+    display: block;
+  }
+  .main {
+    padding: 40px 150px 35px;
+    flex-direction: row;
+  }
+  .content {
+    width: 76%;
+  }
+  .wrapper-title {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .wrapper-input {
+    width: 55%;
+  }
+  .input {
+    width: 55%;
+  }
+  .btn {
+    width: 55%;
+  }
+  .information {
+    width: 44%;
+  }
 }

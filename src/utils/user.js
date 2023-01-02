@@ -26,12 +26,27 @@ export const updatePin = (id, body, token) => {
   });
 };
 
-export const getUserById = (token, id) => {
-  const URL = HOST + `/user/profile/${id}`
+export const updateUserById = (id, token, body) => {
+  const URL = HOST + `/user/profile/${id}`;
+  return axios.patch(URL, body, {
+    headers: { Authorization: "Bearer " + token },
+  });
+};
+
+export const updatePassword = (id, token, body) => {
+  const URL = HOST + `/user/password/${id}`;
+  return axios.patch(URL, body, {
+    headers: { Authorization: "Bearer " + token },
+  });
+};
+
+export const getUserById = (id, token) => {
+  const URL = HOST + `/user/profile/${id}`;
+  console.log(URL);
   return axios.get(URL, {
     headers: { Authorization: "Bearer " + token },
-  })
-}
+  });
+};
 
 export const getDataUser = (param, token) => {
   const URL = param.search ? HOST + `/user?page=${param.page}&limit=${param.per_page}&search=${param.search}&sort=${param.sort}` :
@@ -42,8 +57,10 @@ export const getDataUser = (param, token) => {
   
 }
 
-export const updateImage = (id,body,token) => {
-  console.log('id',id);
+export const updateImage = (id, body, token) => {
+  console.log("id", id);
   const URL = HOST + `/user/image/${id}`;
-  return axios.patch(URL, body ,{ headers: { Authorization: "Bearer " + token } });
+  return axios.patch(URL, body, {
+    headers: { Authorization: "Bearer " + token },
+  });
 };

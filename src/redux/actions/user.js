@@ -1,5 +1,5 @@
 import ACTION_STRING from "./actionStrings";
-import { checkPin, getUserById, updatePin, getDataUser, updateImage } from "../../utils/user";
+import { checkPin, getUserById, updateUserById, updatePin, getDataUser, updateImage, updatePassword } from "../../utils/user";
 
 const checkPinPending = () => ({
   type: ACTION_STRING.checkPin.concat(ACTION_STRING.pending),
@@ -57,6 +57,20 @@ const getUserByIdFulfilled = (data) => ({
   payload: { data },
 });
 
+const updateUserByIdPending = () => ({
+  type: ACTION_STRING.updateUserById.concat(ACTION_STRING.pending),
+});
+
+const updateUserByIdRejected = (error) => ({
+  type: ACTION_STRING.updateUserById.concat(ACTION_STRING.rejected),
+  payload: { error },
+});
+
+const updateUserByIdFulfilled = (data) => ({
+  type: ACTION_STRING.updateUserById.concat(ACTION_STRING.fulfilled),
+  payload: { data },
+});
+
 const upadateImgPending = () => ({
   type: ACTION_STRING.updateImg.concat(ACTION_STRING.pending),
 });
@@ -68,6 +82,20 @@ const upadateImgRejected = (error) => ({
 
 const upadateImgFulfilled = (data) => ({
   type: ACTION_STRING.updateImg.concat(ACTION_STRING.fulfilled),
+  payload: { data },
+});
+
+const upadatePasswordPending = () => ({
+  type: ACTION_STRING.updatePassword.concat(ACTION_STRING.pending),
+});
+
+const upadatePasswordRejected = (error) => ({
+  type: ACTION_STRING.updatePassword.concat(ACTION_STRING.rejected),
+  payload: { error },
+});
+
+const upadatePasswordFulfilled = (data) => ({
+  type: ACTION_STRING.updatePassword.concat(ACTION_STRING.fulfilled),
   payload: { data },
 });
 
@@ -90,7 +118,7 @@ const getDataUserThunk = (param, token) => {
     try {
       dispatch(getDataUserPending());
       const result = await getDataUser(param, token);
-      dispatch(getDataUserFulfilled(result.data.data));
+      dispatch(getDataUserFulfilled(result.data));
       if (typeof cbSuccess === "function") cbSuccess();
     } catch (error) {
       dispatch(getDataUserRejected(error));
@@ -106,8 +134,23 @@ const getUserByIdThunk = (id, token) => {
       const result = await getUserById(id, token);
       dispatch(getUserByIdFulfilled(result.data));
       if (typeof cbSuccess === "function") cbSuccess();
+      
     } catch (error) {
       dispatch(getUserByIdRejected(error));
+      if (typeof cbDenied === "function") cbDenied();
+    }
+  }
+}
+
+const updateUserByIdThunk = (id, token, body, cbSuccess, cbDenied) => {
+  return async (dispatch) => {
+    try {
+      dispatch(updateUserByIdPending());
+      const result = await updateUserById(id, token, body);
+      dispatch(updateUserByIdFulfilled(result.data));
+      if (typeof cbSuccess === "function") cbSuccess();
+    } catch (error) {
+      dispatch(updateUserByIdRejected(error));
       if (typeof cbDenied === "function") cbDenied();
     }
   };
@@ -127,11 +170,27 @@ const updateImgThunk = (id, body, token) => {
   };
 };
 
+const updatePasswordThunk = (id, body, token, cbSuccess, cbDenied) => {
+  return async (dispatch) => {
+    try {
+      dispatch(upadatePasswordPending());
+      const result = await updatePassword(id, body, token);
+      dispatch(upadatePasswordFulfilled(result.data));
+      if (typeof cbSuccess === "function") cbSuccess();
+    } catch (error) {
+      dispatch(upadatePasswordRejected(error));
+      if (typeof cbDenied === "function") cbDenied();
+    }
+  };
+};
+
 const userAction = {
   updatePinThunk,
-  getUserByIdThunk,
+  updateUserByIdThunk,
   getDataUserThunk,
+  getUserByIdThunk,
   updateImgThunk,
+  updatePasswordThunk,
 };
 
 export default userAction;

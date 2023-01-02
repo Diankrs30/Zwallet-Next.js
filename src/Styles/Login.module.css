@@ -93,6 +93,18 @@
   font-weight: 700;
 }
 
+.text-empty {
+  color: rgba(58, 61, 66, 0.8);
+}
+
+.text-filled {
+  color: #6379f4;
+}
+
+.text-failed {
+  color: #FF5B37;
+}
+
 .btn {
   margin-top: 70px;
   padding: 20px;

@@ -30,6 +30,8 @@
     width: 52px;
     height: 52px;
     border-radius: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
 .navbar {
@@ -47,4 +49,28 @@
 .phone {
   font-size: 13px;
   font-weight: 400;
+}
+
+@media (min-width: 425px) {
+  .container {
+    align-items: center;
+    padding: 44px 20px;
+  }
+
+}
+
+@media (min-width: 768px) {
+  .container {
+    align-items: center;
+    padding: 44px 40px;
+  }
+
+}
+
+@media (min-width: 1024px) {
+  .container {
+    align-items: center;
+    padding: 44px 150px;
+  }
+
 }
