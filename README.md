@@ -79,7 +79,7 @@ You may also see any lint errors in the console.
 
 ## Deployment
 
-[Vercel deploy link] (https://zwallet-next-js-qoqp.vercel.app/)
+[Vercel deploy link] (https://zwallet-neon.vercel.app/)
 
 ## Screenshots
 
