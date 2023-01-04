@@ -16,16 +16,16 @@ const getHistoryFulfilled = (data) => ({
 });
 
 const getHistoryByIdPending = () => ({
-  type: ACTION_STRING.getHistory.concat(ACTION_STRING.pending),
+  type: ACTION_STRING.getHistoryById.concat(ACTION_STRING.pending),
 });
 
 const getHistoryByIdRejected = (error) => ({
-  type: ACTION_STRING.getHistory.concat(ACTION_STRING.rejected),
+  type: ACTION_STRING.getHistoryById.concat(ACTION_STRING.rejected),
   payload: { error },
 });
 
 const getHistoryByIdFulfilled = (data) => ({
-  type: ACTION_STRING.getHistory.concat(ACTION_STRING.fulfilled),
+  type: ACTION_STRING.getHistoryById.concat(ACTION_STRING.fulfilled),
   payload: { data },
 });
 

@@ -1,6 +1,7 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import historyAction from "src/redux/actions/history";
 
 import Image from "next/image";
 import styles from "styles/Success.module.css";
@@ -17,8 +18,9 @@ import Success from "assets/success.svg";
 import Failed from "assets/failed.svg";
 import image from "assets/default-img.png";
 
-function Status() {
+function TransactionSuccess() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.userData);
   const transferResult = useSelector((state) => state.transfer.transferResult);
   const { status, data } = transferResult;
@@ -26,6 +28,10 @@ function Status() {
   const userBalance = useSelector((state) => state.user.profile.balance);
   const { receiverData } = transferData;
   const link = process.env.NEXT_PUBLIC_CLOUDINARY_IMAGE;
+  
+  console.log(router.query);
+  const id = router.query.transactionId ?? "";
+  console.log("apaaaa", id)
 
   const transactionDate = () => {
     const arrbulan = [
@@ -52,6 +58,16 @@ function Status() {
     const tahun = date.getFullYear();
     return `${arrbulan[bulan]} ${tanggal} , ${tahun} - ${jam}:${menit}:${detik} `;
   };
+
+  const getHistoryById = () => {;
+    if (id) {
+      dispatch(historyAction.getHistoryByIdThunk(id, auth.token));
+    }
+  };
+
+  useEffect(() => {
+    getHistoryById();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -176,4 +192,4 @@ function Status() {
   );
 }
 
-export default Status;
+export default TransactionSuccess;

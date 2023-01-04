@@ -4,12 +4,19 @@ import vector4 from "assets/Vector4.png"
 import phone2 from "assets/png-phone2.svg";
 import phone from "assets/png-phone.svg";
 import styles from "styles/SidebarAuth.module.css";
+import { useRouter } from "next/router";
 
 function Sidelogin() {
+  const router = useRouter();
+
+  const handleHome = () => {
+    router.push("/");
+  }
+
   return (
     <div>
       <section className={`${styles.container}`}>
-        <div className={styles["wrapper-title"]}>
+        <div className={styles["wrapper-title"]} onClick={() => handleHome()}>
           <p className={styles.title}>FazzPay</p>
         </div>
         <div className={styles.vector}>

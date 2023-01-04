@@ -2,6 +2,7 @@ import ACTION_STRING from "../actions/actionStrings";
 
 const initialState = {
   history: [],
+  data: {},
   pagination: {},
   isLoading: false,
   isError: false,
@@ -55,7 +56,7 @@ const historyReducer = (prevState = initialState, { type, payload }) => {
         ...prevState,
         isLoading: false,
         isFulffiled: true,
-        history: payload.data.data,
+        data: payload.data.data,
       };
 
     default:

@@ -149,6 +149,10 @@ function Dashboard() {
     dispatch(getDashboardAction.statisticThunk(auth.id, auth.token));
   };
 
+  const handlerHistoryId = (id) => {
+    router.push(`/transaction/history/${id}`);
+  };
+
   useEffect(() => {
     getUserById();
     getHistory();
@@ -241,6 +245,7 @@ function Dashboard() {
                       <div
                         className={`${styles["card-user"]} ${styles.flex}`}
                         key={idx}
+                        // onClick={() => handlerHistoryId(data.id)}
                       >
                         <div
                           className={`${styles["info-user"]} ${styles.flex}`}
