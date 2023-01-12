@@ -22,7 +22,7 @@ FazzPay is a digital wallet (e-Wallet) that works like magic!
 - [Run Application](#how-to-run-the-application)
 - [Deployment](#deployment)
 - [Screenshots](#screenshots)
-- [Author](#contributors)
+- [Author](#Author)
 
 ## Features
 
