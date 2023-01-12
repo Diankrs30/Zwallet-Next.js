@@ -62,9 +62,9 @@ function Header() {
           <div className={styles.icon} onClick={notifHandler}>
             {/* <Image src={bell} alt="notification" /> */}
             {!show ? (
-              <i className="fa-regular fa-bell" style={{ fontSize: 25 }}></i>
+              <i className="fa-regular fa-bell" style={{ fontSize: 25, pointer: "cursor"}}></i>
             ) : (
-              <i className="fa-solid fa-bell" style={{ color: "#6379F4", fontSize: 25 }}></i>
+              <i className="fa-solid fa-bell" style={{ color: "#6379F4", fontSize: 25, pointer: "cursor" }}></i>
             )}
           </div>
         </div>
